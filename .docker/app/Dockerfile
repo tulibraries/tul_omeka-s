@@ -7,8 +7,8 @@ FROM php:7.4-apache-buster
 RUN a2enmod rewrite
 
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get -qq update && apt-get -qq -y upgrade
-RUN apt-get -qq update && apt-get -qq -y --no-install-recommends install \
+RUN apt-get -qq update && apt-get -qq -y upgrade \
+&&  apt-get -qq update && apt-get -qq -y --no-install-recommends install \
     unzip \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
@@ -21,24 +21,18 @@ RUN apt-get -qq update && apt-get -qq -y --no-install-recommends install \
     libmagickwand-dev \
     wget \
     ghostscript \
-    poppler-utils
-
-# Install the PHP extensions we need
-RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/
-RUN docker-php-ext-install -j$(nproc) iconv pdo pdo_mysql mysqli gd
-RUN yes | pecl install  mcrypt-1.0.3 && docker-php-ext-enable mcrypt && yes | pecl install imagick && docker-php-ext-enable imagick 
-
-# Add the Omeka-S PHP code
-# Latest Omeka version, check: https://omeka.org/s/download/
-RUN wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.0.2/omeka-s-3.0.2.zip" -O /var/www/latest_omeka_s.zip
-RUN unzip -q /var/www/latest_omeka_s.zip -d /var/www/ \
+    poppler-utils \
+&&  docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/ \
+&&  docker-php-ext-install -j$(nproc) iconv pdo pdo_mysql mysqli gd \
+&&  yes | pecl install  mcrypt-1.0.3 && docker-php-ext-enable mcrypt && yes | pecl install imagick && docker-php-ext-enable imagick \
+&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.0.2/omeka-s-3.0.2.zip" -O /var/www/latest_omeka_s.zip \
+&&  unzip -q /var/www/latest_omeka_s.zip -d /var/www/ \
 &&  rm /var/www/latest_omeka_s.zip \
 &&  rm -rf /var/www/html/ \
 &&  mv /var/www/omeka-s/ /var/www/html/
 
 COPY ./imagemagick-policy.xml /etc/ImageMagick-6/policy.xml
 COPY ./.htaccess /var/www/html/.htaccess
-
 
 # Create one volume for files, config, themes and modules
 RUN mkdir -p /var/www/html/volume/config/ && mkdir -p /var/www/html/volume/files/ && mkdir -p /var/www/html/volume/modules/ && mkdir -p /var/www/html/volume/themes/
