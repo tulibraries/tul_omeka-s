@@ -7,8 +7,9 @@ FROM php:7.4-apache-buster
 RUN a2enmod rewrite
 
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get -qq update && apt-get -qq -y upgrade \
-&&  apt-get -qq update && apt-get -qq -y --no-install-recommends install \
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN apt-get -qq update \
+&&  apt-get -qq -y --no-install-recommends install \
     unzip=6.0-23+deb10u2 \
     libfreetype6-dev=2.9.1-3+deb10u2 \
     libjpeg62-turbo-dev=1:1.5.2-2+deb10u1 \
@@ -23,7 +24,7 @@ RUN apt-get -qq update && apt-get -qq -y upgrade \
     ghostscript=9.27~dfsg-2+deb10u4 \
     poppler-utils=0.71.0-5 \
 &&  docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/ \
-&&  docker-php-ext-install -j$(nproc) iconv pdo pdo_mysql mysqli gd \
+&&  docker-php-ext-install -j"$(nproc)" iconv pdo pdo_mysql mysqli gd \
 &&  yes | pecl install  mcrypt-1.0.3 && docker-php-ext-enable mcrypt && yes | pecl install imagick && docker-php-ext-enable imagick \
 &&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.0.2/omeka-s-3.0.2.zip" -O /var/www/latest_omeka_s.zip \
 &&  unzip -q /var/www/latest_omeka_s.zip -d /var/www/ \
@@ -52,9 +53,9 @@ RUN rm /var/www/html/config/database.ini \
 && chown -R www-data:www-data /var/www/html/ \
 && chmod 600 /var/www/html/volume/config/database.ini \
 && chmod 600 /var/www/html/volume/config/local.config.php \
-&& chmod 600 /var/www/html/.htaccess
+&& chmod 600 /var/www/html/.htaccess \
+%% echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 VOLUME /var/www/html/volume/
-\
-CMD echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
 CMD ["apache2-foreground"]
