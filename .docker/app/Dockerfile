@@ -9,19 +9,19 @@ RUN a2enmod rewrite
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -qq update && apt-get -qq -y upgrade \
 &&  apt-get -qq update && apt-get -qq -y --no-install-recommends install \
-    unzip \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libmcrypt-dev \
-    libpng-dev \
-    libjpeg-dev \
-    libmemcached-dev \
-    zlib1g-dev \
-    imagemagick \
-    libmagickwand-dev \
-    wget \
-    ghostscript \
-    poppler-utils \
+    unzip=6.0-23+deb10u2 \
+    libfreetype6-dev=2.9.1-3+deb10u2 \
+    libjpeg62-turbo-dev=1:1.5.2-2+deb10u1 \
+    libmcrypt-dev=2.5.8-3.4 \
+    libpng-dev=1.6.36-6 \
+    libjpeg-dev=1:1.5.2-2+deb10u1 \
+    libmemcached-dev=1.0.18-4.2 \
+    zlib1g-dev=1:1.2.11.dfsg-1 \
+    imagemagick=8:6.9.10.23+dfsg-2.1+deb10u1 \
+    libmagickwand-dev=8:6.9.10.23+dfsg-2.1+deb10u1 \
+    wget=1.20.1-1.1 \
+    ghostscript=9.27~dfsg-2+deb10u4 \
+    poppler-utils=0.71.0-5 \
 &&  docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/ \
 &&  docker-php-ext-install -j$(nproc) iconv pdo pdo_mysql mysqli gd \
 &&  yes | pecl install  mcrypt-1.0.3 && docker-php-ext-enable mcrypt && yes | pecl install imagick && docker-php-ext-enable imagick \
