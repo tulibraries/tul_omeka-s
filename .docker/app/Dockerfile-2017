@@ -1,0 +1,36 @@
+FROM php:7.1-apache
+
+RUN a2enmod rewrite
+
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get -qq update && \
+      apt-get -qq -y --no-install-recommends install \
+      curl=7.64.0-4+deb10u2 \
+      unzip=6.0-23+deb10u2 \
+      libfreetype6-dev=2.9.1-3+deb10u2 \
+      libjpeg62-turbo-dev=1:1.5.2-2+deb10u1 \
+      libmcrypt-dev=2.5.8-3.4 \
+      libpng-dev=1.6.36-6 \
+      libjpeg-dev=1:1.5.2-2+deb10u1 \
+      libmemcached-dev=1.0.18-4.2 \
+      zlib1g-dev=1:1.2.11.dfsg-1 \
+      imagemagick=8:6.9.10.23+dfsg-2.1+deb10u1 && \
+    docker-php-ext-install "-j$(nproc)" iconv mcrypt \
+      pdo pdo_mysql mysqli gd && \
+    docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ &&  \
+    curl -J -L -s -k \
+      'https://github.com/omeka/omeka-s/releases/download/v3.0.2/omeka-s-3.0.2.zip' \
+      -o /var/www/omeka-s.zip && \
+    unzip -q /var/www/omeka-s.zip -d /var/www/ && \
+    rm /var/www/omeka-s.zip && \
+    rm -rf /var/www/html && \
+    mv /var/www/omeka-s /var/www/html && \
+    chown -R www-data:www-data /var/www/html
+
+COPY ./database.ini /var/www/html/config/database.ini
+COPY ./imagemagick-policy.xml /etc/ImageMagick/policy.xml
+COPY ./.htaccess /var/www/html/.htaccess
+
+VOLUME /var/www/html
+
+CMD ["apache2-foreground"]
