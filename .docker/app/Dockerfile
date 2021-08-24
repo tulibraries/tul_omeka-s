@@ -58,4 +58,14 @@ RUN rm /var/www/html/config/database.ini \
 
 VOLUME /var/www/html/volume/
 
+ADD "https://github.com/omeka-s-modules/Mapping/releases/download/v1.4.1/Mapping-1.4.1.zip" /var/www/html/volume/modules/
+ADD "https://github.com/Daniel-KM/Omeka-S-module-OaiPmhRepository/releases/download/3.3.5.4/OaiPmhRepository-3.3.5.4.zip" /var/www/html/volume/modules/
+ADD "https://github.com/Daniel-KM/Omeka-S-module-ImageServer/releases/download/3.6.7.3/ImageServer-3.6.7.3.zip" /var/www/html/volume/modules/
+ADD "https://github.com/Daniel-KM/Omeka-S-module-ImageServer/releases/download/3.6.7.3/ImageServer-3.6.7.3.zip" /var/www/html/volume/modules/
+ADD "https://github.com/Daniel-KM/Omeka-S-module-IiifServer/releases/download/3.6.5.3/IiifServer-3.6.5.3.zip" /var/www/html/volume/modules/
+ADD "https://github.com/omeka-s-modules/CSVImport/releases/download/v2.2.1/CSVImport-2.2.1.zip" /var/www/html/volume/modules/
+ADD "https://github.com/Daniel-KM/Omeka-S-module-BulkEdit/releases/download/3.3.12.4/BulkEdit-3.3.12.4.zip" /var/www/html/volume/modules/
+ADD "https://github.com/zerocrates/AltText/releases/download/v1.2.1/AltText-1.2.1.zip" /var/www/html/volume/modules/
+ADD "https://github.com/omeka-s-modules/CSSEditor/releases/download/v1.3.0/CSSEditor-1.3.0.zip" /var/www/html/volume/modules/
+
 CMD ["apache2-foreground"]

@@ -32,5 +32,7 @@ services:
       - type: bind
         source: ./themes/custom/
         target: /var/www/html/themes/custom/
+      - ource: .
+        target: /var/www/html/volume
     restart: always
 
