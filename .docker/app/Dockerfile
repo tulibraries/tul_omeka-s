@@ -32,43 +32,31 @@ RUN apt-get -qq update \
 &&  unzip -q /var/www/latest_omeka_s.zip -d /var/www/ \
 &&  rm /var/www/latest_omeka_s.zip \
 &&  rm -rf /var/www/html/ \
-&&  mv /var/www/omeka-s/ /var/www/html/
+&&  mv /var/www/omeka-s/ /var/www/html/ \
+&& mkdir -p /var/www/html/config/ && mkdir -p /var/www/html/files/ && mkdir -p /var/www/html/modules/ && mkdir -p /var/www/html/themes/
 
 COPY ./imagemagick-policy.xml /etc/ImageMagick-6/policy.xml
 COPY ./.htaccess /var/www/html/.htaccess
 
-# Create one volume for files, config, themes and modules
-RUN mkdir -p /var/www/html/volume/config/ && mkdir -p /var/www/html/volume/files/ && mkdir -p /var/www/html/volume/modules/ && mkdir -p /var/www/html/volume/themes/
+# Non-Volume = Create directories for files, config, themes and modules
+# 
+COPY ./database.ini /var/www/html/config/
+COPY ./local.config.php /var/www/html/config/
 
-COPY ./database.ini /var/www/html/volume/config/
-COPY ./local.config.php /var/www/html/volume/config/
-RUN rm /var/www/html/config/database.ini \
-&& ln -s /var/www/html/volume/config/database.ini /var/www/html/config/database.ini \
-&& rm /var/www/html/config/local.config.php \
-&& ln -s /var/www/html/volume/config/local.config.php /var/www/html/config/local.config.php \
-&& rm -Rf /var/www/html/files/ \
-&& ln -s /var/www/html/volume/files/ /var/www/html/files \
-&& rm -Rf /var/www/html/modules/ \
-&& ln -s /var/www/html/volume/modules/ /var/www/html/modules \
-&& rm -Rf /var/www/html/themes/ \
-&& ln -s /var/www/html/volume/themes/ /var/www/html/themes \
-&& chown -R www-data:www-data /var/www/html/ \
-&& chmod 600 /var/www/html/volume/config/database.ini \
-&& chmod 600 /var/www/html/volume/config/local.config.php \
-&& chmod 600 /var/www/html/.htaccess \
-&& echo "ServerName localhost" >> /etc/apache2/apache2.conf
-
-VOLUME /var/www/html/volume/
-
-ADD "https://github.com/omeka-s-modules/Mapping/releases/download/v1.4.1/Mapping-1.4.1.zip" /var/www/html/volume/modules/
-ADD "https://github.com/Daniel-KM/Omeka-S-module-OaiPmhRepository/releases/download/3.3.5.4/OaiPmhRepository-3.3.5.4.zip" /var/www/html/volume/modules/
-ADD "https://github.com/Daniel-KM/Omeka-S-module-ImageServer/releases/download/3.6.7.3/ImageServer-3.6.7.3.zip" /var/www/html/volume/modules/
-ADD "https://github.com/Daniel-KM/Omeka-S-module-IiifServer/releases/download/3.6.5.3/IiifServer-3.6.5.3.zip" /var/www/html/volume/modules/
-ADD "https://github.com/omeka-s-modules/CSVImport/releases/download/v2.2.1/CSVImport-2.2.1.zip" /var/www/html/volume/modules/
-ADD "https://github.com/Daniel-KM/Omeka-S-module-BulkEdit/releases/download/3.3.12.4/BulkEdit-3.3.12.4.zip" /var/www/html/volume/modules/
-ADD "https://github.com/zerocrates/AltText/releases/download/v1.2.1/AltText-1.2.1.zip" /var/www/html/volume/modules/
-ADD "https://github.com/omeka-s-modules/CSSEditor/releases/download/v1.3.0/CSSEditor-1.3.0.zip" /var/www/html/volume/modules/
-
-RUN cd /var/www/html/volume/modules && unzip \*.zip && rm *.zip
+RUN chown -R www-data:www-data /var/www/html/ \
+&&  chmod 600 /var/www/html/config/database.ini \
+&&  chmod 600 /var/www/html/config/local.config.php \
+&&  chmod 600 /var/www/html/.htaccess \
+&&  echo "ServerName localhost" >> /etc/apache2/apache2.conf \
+&&  cd /var/www/html/modules/ \
+&&  wget "https://github.com/omeka-s-modules/Mapping/releases/download/v1.4.1/Mapping-1.4.1.zip" \
+&&  wget "https://github.com/Daniel-KM/Omeka-S-module-OaiPmhRepository/releases/download/3.3.5.4/OaiPmhRepository-3.3.5.4.zip" \
+&&  wget "https://github.com/Daniel-KM/Omeka-S-module-ImageServer/releases/download/3.6.7.3/ImageServer-3.6.7.3.zip" \
+&&  wget "https://github.com/Daniel-KM/Omeka-S-module-IiifServer/releases/download/3.6.5.3/IiifServer-3.6.5.3.zip" \
+&&  wget "https://github.com/omeka-s-modules/CSVImport/releases/download/v2.2.1/CSVImport-2.2.1.zip" \
+&&  wget "https://github.com/Daniel-KM/Omeka-S-module-BulkEdit/releases/download/3.3.12.4/BulkEdit-3.3.12.4.zip" \
+&&  wget "https://github.com/zerocrates/AltText/releases/download/v1.2.1/AltText-1.2.1.zip" \
+&&  wget "https://github.com/omeka-s-modules/CSSEditor/releases/download/v1.3.0/CSSEditor-1.3.0.zip" \
+&&  sh -c "unzip -q \*.zip"
 
 CMD ["apache2-foreground"]
