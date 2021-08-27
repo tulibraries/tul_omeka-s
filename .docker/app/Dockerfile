@@ -4,11 +4,15 @@ FROM php:7.4-apache-buster
 # Previous maintainers: Oldrich Vykydal (o1da) - Klokan Technologies GmbH  / Eric Dodemont <eric.dodemont@skynet.be>
 # MAINTAINER Giorgio Comai <g@giorgiocomai.eu>
 
-RUN a2enmod rewrite
-
 ENV DEBIAN_FRONTEND noninteractive
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN apt-get -qq update \
+
+WORKDIR /build
+
+COPY . .
+
+RUN a2enmod rewrite \
+&&  apt-get -qq update \
 &&  apt-get -qq -y --no-install-recommends install \
     unzip=6.0-23+deb10u2 \
     libfreetype6-dev=2.9.1-3+deb10u2 \
@@ -27,36 +31,32 @@ RUN apt-get -qq update \
 &&  docker-php-ext-install -j"$(nproc)" iconv pdo pdo_mysql mysqli gd \
 &&  yes | pecl install  mcrypt-1.0.3 || echo "pecl install encrypt: $?" \
 &&  docker-php-ext-enable mcrypt || echo "docker-pop-ext-enable mcrypt: $?" \
-&&  yes | pecl install imagick || echo "pecl install imagick $?"&& docker-php-ext-enable imagick \
+&&  yes | pecl install imagick || echo "pecl install imagick $?" && docker-php-ext-enable imagick \
 &&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.0.2/omeka-s-3.0.2.zip" -O /var/www/latest_omeka_s.zip \
 &&  unzip -q /var/www/latest_omeka_s.zip -d /var/www/ \
 &&  rm /var/www/latest_omeka_s.zip \
 &&  rm -rf /var/www/html/ \
 &&  mv /var/www/omeka-s/ /var/www/html/ \
-&& mkdir -p /var/www/html/config/ && mkdir -p /var/www/html/files/ && mkdir -p /var/www/html/modules/ && mkdir -p /var/www/html/themes/
-
-COPY ./imagemagick-policy.xml /etc/ImageMagick-6/policy.xml
-COPY ./.htaccess /var/www/html/.htaccess
-
-# Non-Volume = Create directories for files, config, themes and modules
-# 
-COPY ./database.ini /var/www/html/config/
-COPY ./local.config.php /var/www/html/config/
-
-RUN chown -R www-data:www-data /var/www/html/ \
+&&  mkdir -p /var/www/html/config/ && mkdir -p /var/www/html/files/ && mkdir -p /var/www/html/modules/ && mkdir -p /var/www/html/themes/  \
+&&  cp imagemagick-policy.xml /etc/ImageMagick-6/policy.xml \
+&&  cp .htaccess /var/www/html/.htaccess \
+&&  cp database.ini /var/www/html/config/ \
+&&  cp local.config.php /var/www/html/config/ \
+&&  wget --no-verbose "https://github.com/omeka-s-modules/Mapping/releases/download/v1.4.1/Mapping-1.4.1.zip" && unzip Mapping-1.4.1.zip -d /var/www/html/modules/ \
+&&  wget --no-verbose "https://github.com/Daniel-KM/Omeka-S-module-OaiPmhRepository/releases/download/3.3.5.4/OaiPmhRepository-3.3.5.4.zip" && unzip OaiPmhRepository-3.3.5.4.zip -d /var/www/html/modules/ \
+&&  wget --no-verbose "https://github.com/Daniel-KM/Omeka-S-module-ImageServer/releases/download/3.6.7.3/ImageServer-3.6.7.3.zip" && unzip ImageServer-3.6.7.3.zip -d /var/www/html/modules/ \
+&&  wget --no-verbose "https://github.com/Daniel-KM/Omeka-S-module-IiifServer/releases/download/3.6.5.3/IiifServer-3.6.5.3.zip" && unzip IiifServer-3.6.5.3.zip -d /var/www/html/modules/ \
+&&  wget --no-verbose "https://github.com/omeka-s-modules/CSVImport/releases/download/v2.2.1/CSVImport-2.2.1.zip" && unzip CSVImport-2.2.1.zip -d /var/www/html/modules/ \
+&&  wget --no-verbose "https://github.com/Daniel-KM/Omeka-S-module-BulkEdit/releases/download/3.3.12.4/BulkEdit-3.3.12.4.zip" && unzip BulkEdit-3.3.12.4.zip -d /var/www/html/modules/ \
+&&  wget --no-verbose "https://github.com/zerocrates/AltText/releases/download/v1.2.1/AltText-1.2.1.zip" && unzip AltText-1.2.1.zip -d /var/www/html/modules/ \
+&&  wget --no-verbose "https://github.com/omeka-s-modules/CSSEditor/releases/download/v1.3.0/CSSEditor-1.3.0.zip" && unzip CSSEditor-1.3.0.zip -d /var/www/html/modules/ \
+&&  chown -R www-data:www-data /var/www/html/ \
 &&  chmod 600 /var/www/html/config/database.ini \
 &&  chmod 600 /var/www/html/config/local.config.php \
 &&  chmod 600 /var/www/html/.htaccess \
 &&  echo "ServerName localhost" >> /etc/apache2/apache2.conf \
-&&  cd /var/www/html/modules/ \
-&&  wget "https://github.com/omeka-s-modules/Mapping/releases/download/v1.4.1/Mapping-1.4.1.zip" \
-&&  wget "https://github.com/Daniel-KM/Omeka-S-module-OaiPmhRepository/releases/download/3.3.5.4/OaiPmhRepository-3.3.5.4.zip" \
-&&  wget "https://github.com/Daniel-KM/Omeka-S-module-ImageServer/releases/download/3.6.7.3/ImageServer-3.6.7.3.zip" \
-&&  wget "https://github.com/Daniel-KM/Omeka-S-module-IiifServer/releases/download/3.6.5.3/IiifServer-3.6.5.3.zip" \
-&&  wget "https://github.com/omeka-s-modules/CSVImport/releases/download/v2.2.1/CSVImport-2.2.1.zip" \
-&&  wget "https://github.com/Daniel-KM/Omeka-S-module-BulkEdit/releases/download/3.3.12.4/BulkEdit-3.3.12.4.zip" \
-&&  wget "https://github.com/zerocrates/AltText/releases/download/v1.2.1/AltText-1.2.1.zip" \
-&&  wget "https://github.com/omeka-s-modules/CSSEditor/releases/download/v1.3.0/CSSEditor-1.3.0.zip" \
-&&  sh -c "unzip -q \*.zip"
+&&  rm -rf /build 
+
+WORKDIR /var/www/html
 
 CMD ["apache2-foreground"]
