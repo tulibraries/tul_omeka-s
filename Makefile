@@ -57,7 +57,7 @@ run_app:
 run_dev:
 	@docker run --name=$(PROJECT_NAME)-dev -d -p 127.0.0.1:3000:3000/tcp \
 		$(DEFAULT_RUN_ARGS) \
-		--mount type=bind,source=$(shell basename $(CURDIR)),target=/app \
+		--mount type=bind,source=$(PWD),target=/app \
 		$(IMAGE):dev sleep infinity
 
 run_db:
@@ -66,6 +66,7 @@ run_db:
     -e MARIADB_DATABASE=omeka \
     -e MARIADB_USER=omeka \
     -e MARIADB_PASSWORD=omeka \
+		--mount type=bind,source=$(PWD)/data/db,target=/lib/mysql \
 		bitnami/mariadb:latest
 
 shell_app:

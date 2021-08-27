@@ -1,0 +1,9 @@
+.DS_Store
+.docker
+.env
+.git
+.gitignore
+Makefile
+data
+dbenv.sh
+docker-compose.yml

@@ -27,10 +27,7 @@ services:
       - OMEKA_DB_PASSWORD
     volumes:
       - type: bind
-        source: ./modules/
-        target: /var/www/html/modules/
-      - type: bind
-        source: ./themes/custom/
-        target: /var/www/html/themes/custom/
+        source: ./volume
+        target: /var/www/html/volume
     restart: always
 
