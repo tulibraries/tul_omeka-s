@@ -9,7 +9,7 @@ IMAGE ?= tulibraries/$(PROJECT_NAME)
 HARBOR ?= harbor.k8s.temple.edu
 CLEAR_CACHES ?= no
 CI ?= false
-OMEKA_DB_HOST ?= db
+OMEKA_DB_HOST ?= omeka-db
 OMEKA_DB_NAME ?= omeka
 OMEKA_DB_USER ?= omeka
 OMEKA_DB_PASSWORD ?= omeka
@@ -21,12 +21,15 @@ DEFAULT_RUN_ARGS ?= -e "EXECJS_RUNTIME=Disabled" \
     -e "OMEKA_DB_NAME=$(OMEKA_DB_NAME)" \
     -e "OMEKA_DB_USER=$(OMEKA_DB_USER)" \
     -e "OMEKA_DB_PASSWORD=$(OMEKA_DB_PASSWORD)" \
+		--mount type=bind,source="$(shell pwd)/volume/files",target=/var/www/html/files \
+		--mount type=bind,source="$(shell pwd)/volume/modules",target=/var/www/html/modules \
+		--mount type=bind,source="$(shell pwd)/volume/themes",target=/var/www/html/themes \
     --rm -it
 
 showenv:
-	@echo $(OMEKA_DB_HOST)
-	@echo $(OMEKA_DB_NAME)
-	@echo $(OMEKA_DB_USER)
+	@echo "OMEKA_DB_HOST: $(OMEKA_DB_HOST)"
+	@echo "OMEKA_DB_NAME: $(OMEKA_DB_NAME)"
+	@echo "OMEKA_DB_USER: $(OMEKA_DB_USER)"
 
 build: pull_db build_app
 
@@ -61,7 +64,7 @@ run_dev:
 		$(IMAGE):dev sleep infinity
 
 run_db:
-	@docker run --name=db -d -p 127.0.0.1:3306:3306 \
+	@docker run --name=$(OMEKA_DB_HOST) -d -p 127.0.0.1:3306:3306 \
 	  -e MARIADB_ROOT_PASSWORD=omeka \
     -e MARIADB_DATABASE=omeka \
     -e MARIADB_USER=omeka \
@@ -76,7 +79,7 @@ shell_dev:
 	@docker exec -it $(PROJECT_NAME)-dev bash -l
 
 shell_db:
-	@docker exec -it db bash -l
+	@docker exec -it $(OMEKA_DB_HOST) bash -l
 
 stop_dev:
 	@docker stop $(PROJECT_NAME)-dev
@@ -87,7 +90,7 @@ start_app:
 	@docker start $(PROJECT_NAME)
 
 start_db:
-	@docker start db 
+	@docker start $(OMEKA_DB_HOST)
 
 stop: stop_app stop_db
 
@@ -95,7 +98,7 @@ stop_app:
 	@docker stop $(PROJECT_NAME)
 
 stop_db:
-	@docker stop db 
+	@docker stop $(OMEKA_DB_HOST)
 
 down: down_app down_db 
 
@@ -103,8 +106,8 @@ down_app:
 	@docker stop $(PROJECT_NAME)
 
 down_db:
-	@docker stop db 
-	@docker rm db 
+	@docker stop $(OMEKA_DB_HOST)
+	@docker rm $(OMEKA_DB_HOST)
 
 lint:
 	@if [ $(CI) == false ]; \
