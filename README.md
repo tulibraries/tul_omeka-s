@@ -43,7 +43,7 @@ $ exit
 
 # Install Extensions
 
-1. Rancho Workload Dashboard
+1. In browser, visit the Rancho Workload Dashboard
 2. Scroll to tul-omeka-s workload
 3. Click on menu (Three dots on right)
 4. Select "Execute Shell"
@@ -61,6 +61,10 @@ $ exit
 	5. `rm [downloaded zip file]`
 7. `exit`
 
+As an administrative user on the Omeka Web Application, modules are activated and configured
+from the Admin menu on the left side of the administration dashboard.  Themes are selected
+and configured from the Sites menu item on the left side of the administrative dashboard.
+
 ## Module List
 
 - https://github.com/omeka-s-modules/Mapping/releases/download/v1.4.1/Mapping-1.4.1.zip"
@@ -71,3 +75,13 @@ $ exit
 - https://github.com/Daniel-KM/Omeka-S-module-BulkEdit/releases/download/3.3.12.4/BulkEdit-3.3.12.4.zip
 - https://github.com/zerocrates/AltText/releases/download/v1.2.1/AltText-1.2.1.zip
 - https://github.com/omeka-s-modules/CSSEditor/releases/download/v1.3.0/CSSEditor-1.3.0.zip
+
+## Themes List
+
+- https://github.com/omeka-s-themes/default/releases/download/v1.6.1/theme-default-v1.6.1.zip
+- https://github.com/omeka-s-themes/papers/releases/download/v1.3.1/theme-papers-v1.3.1.zip
+- https://github.com/omeka-s-themes/centerrow/releases/download/v1.6.0/theme-centerrow-v1.6.0.zip
+- https://github.com/omeka-s-themes/cozy/releases/download/v1.5.1/theme-cozy-v1.5.1.zip
+- https://github.com/omeka-s-themes/foundation-s/releases/download/v1.1.0/theme-foundation-s-v1.1.0.zip
+- https://github.com/omeka-s-themes/thanksroy/releases/download/v1.0.0/theme-thanksroy-v1.0.0.zip
+- https://github.com/omeka-s-themes/thedaily/releases/download/v1.6.1/theme-thedaily-v1.6.1.zip
