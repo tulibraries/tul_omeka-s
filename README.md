@@ -29,7 +29,7 @@
 		- Subpath in Volume: themes
 	- >> Save (bottom of form)
 - Workload will update, Status: "updating workload"
-- Rancho Workload Dashboard
+- Rancher Workload Dashboard
 - Scroll to tul-omeka-s workload
 - Click on menu (Three dots on right)
 - Verify mounted volumes `ls`
@@ -43,7 +43,7 @@ $ exit
 
 # Install Extensions
 
-1. In browser, visit the Rancho Workload Dashboard
+1. In browser, visit the Rancher Workload Dashboard
 2. Scroll to tul-omeka-s workload
 3. Click on menu (Three dots on right)
 4. Select "Execute Shell"
