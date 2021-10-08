@@ -42,14 +42,6 @@ RUN a2enmod rewrite \
 &&  cp .htaccess /var/www/html/.htaccess \
 &&  cp database.ini /var/www/html/config/ \
 &&  cp local.config.php /var/www/html/config/ \
-&&  wget --no-verbose "https://github.com/omeka-s-modules/Mapping/releases/download/v1.4.1/Mapping-1.4.1.zip" && unzip Mapping-1.4.1.zip -d /var/www/html/modules/ \
-&&  wget --no-verbose "https://github.com/Daniel-KM/Omeka-S-module-OaiPmhRepository/releases/download/3.3.5.4/OaiPmhRepository-3.3.5.4.zip" && unzip OaiPmhRepository-3.3.5.4.zip -d /var/www/html/modules/ \
-&&  wget --no-verbose "https://github.com/Daniel-KM/Omeka-S-module-ImageServer/releases/download/3.6.7.3/ImageServer-3.6.7.3.zip" && unzip ImageServer-3.6.7.3.zip -d /var/www/html/modules/ \
-&&  wget --no-verbose "https://github.com/Daniel-KM/Omeka-S-module-IiifServer/releases/download/3.6.5.3/IiifServer-3.6.5.3.zip" && unzip IiifServer-3.6.5.3.zip -d /var/www/html/modules/ \
-&&  wget --no-verbose "https://github.com/omeka-s-modules/CSVImport/releases/download/v2.2.1/CSVImport-2.2.1.zip" && unzip CSVImport-2.2.1.zip -d /var/www/html/modules/ \
-&&  wget --no-verbose "https://github.com/Daniel-KM/Omeka-S-module-BulkEdit/releases/download/3.3.12.4/BulkEdit-3.3.12.4.zip" && unzip BulkEdit-3.3.12.4.zip -d /var/www/html/modules/ \
-&&  wget --no-verbose "https://github.com/zerocrates/AltText/releases/download/v1.2.1/AltText-1.2.1.zip" && unzip AltText-1.2.1.zip -d /var/www/html/modules/ \
-&&  wget --no-verbose "https://github.com/omeka-s-modules/CSSEditor/releases/download/v1.3.0/CSSEditor-1.3.0.zip" && unzip CSSEditor-1.3.0.zip -d /var/www/html/modules/ \
 &&  chown -R www-data:www-data /var/www/html/ \
 &&  chmod 600 /var/www/html/config/database.ini \
 &&  chmod 600 /var/www/html/config/local.config.php \
