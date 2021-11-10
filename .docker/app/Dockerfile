@@ -32,7 +32,7 @@ RUN a2enmod rewrite \
 &&  yes | pecl install  mcrypt-1.0.3 || echo "pecl install encrypt: $?" \
 &&  docker-php-ext-enable mcrypt || echo "docker-pop-ext-enable mcrypt: $?" \
 &&  yes | pecl install imagick || echo "pecl install imagick $?" && docker-php-ext-enable imagick \
-&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.0.2/omeka-s-3.0.2.zip" -O /var/www/latest_omeka_s.zip \
+&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.1.1/omeka-s-3.1.1.zip" -O /var/www/latest_omeka_s.zip \
 &&  unzip -q /var/www/latest_omeka_s.zip -d /var/www/ \
 &&  rm /var/www/latest_omeka_s.zip \
 &&  rm -rf /var/www/html/ \
