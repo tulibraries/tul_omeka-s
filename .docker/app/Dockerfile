@@ -27,6 +27,8 @@ RUN a2enmod rewrite \
     wget=1.20.1-1.1 \
     ghostscript=9.27~dfsg-2+deb10u4 \
     poppler-utils=0.71.0-5 \
+    mariadb-client=1:10.3.31-0+deb10u1 \
+&&  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && aws/install \
 &&  docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/ \
 &&  docker-php-ext-install -j"$(nproc)" iconv pdo pdo_mysql mysqli gd \
 &&  yes | pecl install  mcrypt-1.0.3 || echo "pecl install encrypt: $?" \
