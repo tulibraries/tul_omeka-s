@@ -1,40 +1,40 @@
-FROM php:7.4-apache-buster
-
-# Omeka-S web publishing platform for digital heritage collections (https://omeka.org/s/)
-# Previous maintainers: Oldrich Vykydal (o1da) - Klokan Technologies GmbH  / Eric Dodemont <eric.dodemont@skynet.be>
-# MAINTAINER Giorgio Comai <g@giorgiocomai.eu>
-
-ENV DEBIAN_FRONTEND noninteractive
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+FROM harbor.k8s.temple.edu/library/alpine:3.13
 
 WORKDIR /build
 
 COPY . .
 
-RUN a2enmod rewrite \
-&&  apt-get -qq update \
-&&  apt-get -qq -y --no-install-recommends install \
-    unzip=6.0-23+deb10u2 \
-    libfreetype6-dev=2.9.1-3+deb10u2 \
-    libjpeg62-turbo-dev=1:1.5.2-2+deb10u1 \
-    libmcrypt-dev=2.5.8-3.4 \
-    libpng-dev=1.6.36-6 \
-    libjpeg-dev=1:1.5.2-2+deb10u1 \
-    libmemcached-dev=1.0.18-4.2 \
-    zlib1g-dev=1:1.2.11.dfsg-1 \
-    imagemagick=8:6.9.10.23+dfsg-2.1+deb10u1 \
-    libmagickwand-dev=8:6.9.10.23+dfsg-2.1+deb10u1 \
-    wget=1.20.1-1.1 \
-    ghostscript=9.27~dfsg-2+deb10u4 \
-    poppler-utils=0.71.0-5 \
-    mariadb-client=1:10.3.31-0+deb10u1 \
-&&  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && aws/install \
-&&  docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/ \
-&&  docker-php-ext-install -j"$(nproc)" iconv pdo pdo_mysql mysqli gd \
-&&  yes | pecl install  mcrypt-1.0.3 || echo "pecl install encrypt: $?" \
-&&  docker-php-ext-enable mcrypt || echo "docker-pop-ext-enable mcrypt: $?" \
-&&  yes | pecl install imagick || echo "pecl install imagick $?" && docker-php-ext-enable imagick \
-&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.1.1/omeka-s-3.1.1.zip" -O /var/www/latest_omeka_s.zip \
+USER root
+
+RUN apk add -U --no-cache \
+      bash=5.1.0-r0 \
+      libxslt=1.1.34-r0 \
+      tzdata=2021e-r0 \
+      shared-mime-info=2.0-r0 \
+      imagemagick=7.0.11.13-r0 \
+      mariadb-connector-c=3.1.11-r0 \
+&&  apk add -U --no-cache --virtual build-dependencies \
+      git=2.30.2-r0 \
+      build-base=0.5-r2 \
+      libxslt-dev=1.1.34-r0 \
+      mariadb-dev=10.5.12-r0 \
+      mariadb-client=10.5.12-r0 \
+      php7=7.4.25-r0 \
+      wget=1.21.1-r1 \
+      ghostscript=9.53.3-r1 \
+      poppler-utils=20.12.1-r0 
+RUN wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -O "awscliv2.zip" && unzip awscliv2.zip && aws/install 
+
+RUN wget https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions 
+RUN chmod +x install-php-extensions
+RUN ./install-php-extensions gd xdebug
+
+RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/ 
+RUN docker-php-ext-install -j"$(nproc)" iconv pdo pdo_mysql mysqli gd 
+RUN yes | pecl install  mcrypt-1.0.3 || echo "pecl install encrypt: $?" 
+RUN docker-php-ext-enable mcrypt || echo "docker-pop-ext-enable mcrypt: $?" 
+RUN yes | pecl install imagick || echo "pecl install imagick $?" && docker-php-ext-enable imagick 
+RUN wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.1.1/omeka-s-3.1.1.zip" -O /var/www/latest_omeka_s.zip \
 &&  unzip -q /var/www/latest_omeka_s.zip -d /var/www/ \
 &&  rm /var/www/latest_omeka_s.zip \
 &&  rm -rf /var/www/html/ \
