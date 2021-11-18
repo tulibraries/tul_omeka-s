@@ -41,7 +41,8 @@ build_app:
 		--no-cache .
 
 build_dev:
-	@docker build  \
+	@docker build \
+		--progress plain \
 		--tag $(IMAGE):$(VERSION)-dev \
 		--tag $(IMAGE):dev \
 		--file .docker/app/Dockerfile.dev \
@@ -58,7 +59,7 @@ run_app:
 		$(HARBOR)/$(IMAGE):$(VERSION)
 
 run_dev:
-	@docker run --name=$(PROJECT_NAME)-dev -d -p 127.0.0.1:3000:3000/tcp \
+	@docker run --name=$(PROJECT_NAME)-dev -d -p 127.0.0.1:80:80/tcp \
 		$(DEFAULT_RUN_ARGS) \
 		--mount type=bind,source=$(PWD),target=/app \
 		$(IMAGE):dev sleep infinity
