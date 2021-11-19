@@ -84,7 +84,7 @@ RUN wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.1.1
 &&  chmod 600 /var/www/html/config/local.config.php \
 &&  chmod 600 /var/www/html/.htaccess \
 &&  wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -O "awscliv2.zip" && unzip awscliv2.zip && aws/install  \
-&&  mkdir -p /etc/apache2/ \
+&&  cp -pr files/apache2 /etc/apache2 \
 &&  echo "ServerName localhost" >> /etc/apache2/apache2.conf 
 
 
