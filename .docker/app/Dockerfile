@@ -1,6 +1,4 @@
-#FROM harbor.k8s.temple.edu/library/alpine:3.14
-FROM php-alpine3.14
-#FROM harbor.k8s.temple.edu/webops/atc-webapp-php:v207
+FROM harbor.k8s.temple.edu/library/httpd:2.4-alpine
 
 WORKDIR /build
 
@@ -20,48 +18,70 @@ RUN apk add -U --no-cache \
 &&  apk add -U --no-cache --virtual build-dependencies \
       git=2.32.0-r0 \
       build-base=0.5-r2 \
+      dpkg=1.20.9-r0 \
       libxslt-dev=1.1.34-r1 \
       mariadb-dev=10.5.13-r0 \
       mariadb-client=10.5.13-r0 \
-      php7=7.4.25-r0 \
-      php7-dev=7.4.25-r0 \
-      php7-pear=7.4.25-r0 \
+      php7=7.4.26-r0 \
+      php7-apache2=7.4.26-r0 \
+      php7-dev=7.4.26-r0 \
+      php7-pear=7.4.26-r0 \
       wget=1.21.1-r1 \
+      curl=7.79.1-r0 \
       ghostscript=9.54.0-r1 \
-      poppler-utils=21.06.1-r0 
-
-ADD https://raw.githubusercontent.com/docker-library/php/master/docker-php-entrypoint /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-php-entrypoint
-
-ADD https://raw.githubusercontent.com/docker-library/php/master/docker-php-ext-configure /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-php-ext-configure 
-
-ADD https://raw.githubusercontent.com/docker-library/php/master/docker-php-ext-enable /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-php-ext-enable
-
-ADD https://raw.githubusercontent.com/docker-library/php/master/docker-php-ext-install /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-php-ext-install
-
-ADD https://raw.githubusercontent.com/docker-library/php/master/docker-php-source /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-php-source
-
-ADD https://www.php.net/distributions/php-7.4.25.tar.xz /usr/src/php.tar.xz
-
-ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
-RUN chmod +x /usr/local/bin/install-php-extensions 
-RUN install-php-extensions gd xdebug
-
-RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/ 
-RUN docker-php-ext-install -j"$(nproc)" iconv pdo pdo_mysql mysqli gd 
-RUN yes | pecl install  mcrypt-1.0.3 || echo "pecl install encrypt: $?" 
-RUN docker-php-ext-enable mcrypt || echo "docker-pop-ext-enable mcrypt: $?" 
-RUN yes | pecl install imagick || echo "pecl install imagick $?" && docker-php-ext-enable imagick 
-RUN wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.1.1/omeka-s-3.1.1.zip" -O /var/www/latest_omeka_s.zip \
-&&  unzip -q /var/www/latest_omeka_s.zip -d /var/www/ \
-&&  rm /var/www/latest_omeka_s.zip \
+      poppler-utils=21.06.1-r0 \
+      libpng-dev=1.6.37-r1 \
+      libjpeg-turbo-dev=2.1.0-r0 \
+      freetype-dev=2.10.4-r1 \
+      imagemagick-libs=7.0.11.13-r0 \
+      imagemagick-dev=7.0.11.13-r0 \
+      libxpm-dev \
+      libwebp-dev \
+      php7-mcrypt \
+      php7-imagick \
+&&  curl -sSLf \
+      -o /usr/local/bin/docker-php-entrypoint \
+      https://raw.githubusercontent.com/docker-library/php/master/docker-php-entrypoint \
+&&  chmod +x /usr/local/bin/docker-php-entrypoint \
+&&  curl -sSLf \
+      -o /usr/local/bin/docker-php-ext-configure \
+      https://raw.githubusercontent.com/docker-library/php/master/docker-php-ext-configure \
+&&  chmod +x /usr/local/bin/docker-php-ext-configure \
+&&  curl -sSLf \
+      -o /usr/local/bin/docker-php-ext-enable \
+      https://raw.githubusercontent.com/docker-library/php/master/docker-php-ext-enable \
+&&  chmod +x /usr/local/bin/docker-php-ext-enable \
+&&  curl -sSLf \
+      -o /usr/local/bin/docker-php-ext-install \
+      https://raw.githubusercontent.com/docker-library/php/master/docker-php-ext-install \
+&&  chmod +x /usr/local/bin/docker-php-ext-install \
+&&  curl -sSLf \
+      -o /usr/local/bin/docker-php-source \
+      https://raw.githubusercontent.com/docker-library/php/master/docker-php-source \
+&&  chmod +x /usr/local/bin/docker-php-source \
+&&  curl -sSLf \
+      -o /usr/src/php.tar.xz \
+      https://www.php.net/distributions/php-7.4.25.tar.xz \
+&& pecl channel-update pecl.php.net \
+&&  curl -sSLf \
+      -o /usr/local/bin/install-php-extensions \
+      https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions \
+&&  chmod +x /usr/local/bin/install-php-extensions \
+&&  mkdir /conf.d \
+&&  install-php-extensions gd \
+&&  docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/ \
+&&  docker-php-ext-install -j"$(nproc)" iconv pdo pdo_mysql mysqli gd \
+&&  yes | pecl install  mcrypt-1.0.3 || echo "pecl install encrypt: $?" \
+&&  docker-php-ext-enable mcrypt || echo "docker-pop-ext-enable mcrypt: $?" \
+&&  yes | pecl install imagick || echo "pecl install imagick $?" && docker-php-ext-enable imagick \
+&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.1.1/omeka-s-3.1.1.zip" -O latest_omeka_s.zip \
+&&  unzip -q latest_omeka_s.zip -d /var/www/ \
+&&  rm latest_omeka_s.zip \
 &&  rm -rf /var/www/html/ \
 &&  mv /var/www/omeka-s/ /var/www/html/ \
 &&  mkdir -p /var/www/html/config/ && mkdir -p /var/www/html/files/ && mkdir -p /var/www/html/modules/ && mkdir -p /var/www/html/themes/  \
+&&  cp -pr composer.json /var/www/html/config/composer.json \
+&&  mkdir -p /etc/ImageMagick-6/ \
 &&  cp imagemagick-policy.xml /etc/ImageMagick-6/policy.xml \
 &&  cp .htaccess /var/www/html/.htaccess \
 &&  cp database.ini /var/www/html/config/ \
@@ -70,10 +90,11 @@ RUN wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.1.1
 &&  chmod 600 /var/www/html/config/database.ini \
 &&  chmod 600 /var/www/html/config/local.config.php \
 &&  chmod 600 /var/www/html/.htaccess \
-&&  echo "ServerName localhost" >> /etc/apache2/apache2.conf \
-&&  wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -O "awscliv2.zip" && unzip awscliv2.zip && aws/install  \
+&&  cp -pr files/apache2 /etc/apache2 \
+&&  echo "ServerName localhost" >> /etc/apache2/httpd.conf \
+&&  wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -O "awscliv2.zip" && unzip awscliv2.zip && aws/install \
 &&  rm -rf /build 
 
 WORKDIR /var/www/html
 
-CMD ["apache2-foreground"]
+CMD ["httpd-foreground"]

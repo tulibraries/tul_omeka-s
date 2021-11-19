@@ -54,12 +54,12 @@ pull_db:
 up: run_db run_app
 
 run_app:
-	@docker run --name=$(PROJECT_NAME) -d -p 127.0.0.1:8080:80/tcp \
+	@docker run --name=$(PROJECT_NAME) -d -p 127.0.0.1:80:80/tcp \
 		$(DEFAULT_RUN_ARGS) \
 		$(HARBOR)/$(IMAGE):$(VERSION)
 
 run_dev:
-	@docker run --name=$(PROJECT_NAME)-dev -d -p 127.0.0.1:8080:80/tcp \
+	@docker run --name=$(PROJECT_NAME)-dev -d -p 127.0.0.1:80:80/tcp \
 		$(DEFAULT_RUN_ARGS) \
 		--mount type=bind,source=$(PWD),target=/app \
 		$(IMAGE):dev sleep infinity
