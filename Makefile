@@ -85,6 +85,8 @@ shell_db:
 stop_dev:
 	@docker stop $(PROJECT_NAME)-dev
 
+reload_dev: stop_dev run_dev
+
 start: start_db run_app
 
 start_app:

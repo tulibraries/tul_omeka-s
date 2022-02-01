@@ -35,10 +35,10 @@ RUN apk add -U --no-cache \
       freetype-dev=2.11.0-r0 \
       imagemagick-libs=7.1.0.16-r0 \
       imagemagick-dev=7.1.0.16-r0 \
-      libxpm-dev \
-      libwebp-dev \
-      php7-mcrypt \
-      php7-imagick \
+      libxpm-dev=3.5.13-r0 \
+      libwebp-dev=1.2.2-r0 \
+      php7-mcrypt=1.0.4-r0 \
+      php7-imagick=3.6.0-r0 \
 &&  curl -sSLf \
       -o /usr/local/bin/docker-php-entrypoint \
       https://raw.githubusercontent.com/docker-library/php/master/docker-php-entrypoint \
@@ -85,16 +85,15 @@ RUN apk add -U --no-cache \
 &&  cp .htaccess /var/www/html/.htaccess \
 &&  cp database.ini /var/www/html/config/ \
 &&  cp local.config.php /var/www/html/config/ \
-&&  chown -R www-data:www-data /var/www/html/ \
-&&  chmod 600 /var/www/html/config/database.ini \
-&&  chmod 600 /var/www/html/config/local.config.php \
-&&  chmod 600 /var/www/html/.htaccess \
-&&  rm -rf /etc/apache2 \
-&&  cp -pr files/apache2 /etc/apache2 \
+&&  echo "SKIP: chown -R www-data:www-data /var/www/html/" \
+&&  chmod 766 /var/www/html/config/database.ini \
+&&  chmod 766 /var/www/html/config/local.config.php \
+&&  chmod 766 /var/www/html/.htaccess \
+&&  cp -pr files/apache2/httpd.conf /etc/apache2 \
 &&  echo "ServerName localhost" >> /etc/apache2/httpd.conf \
 &&  wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -O "awscliv2.zip" && unzip awscliv2.zip && aws/install \
 &&  rm -rf /build 
 
 WORKDIR /var/www/html
 
-CMD ["httpd-foreground"]
+CMD ["httpd-foreground", "-d", "/etc/apache2", "-f", "/etc/apache2/httpd.conf"]
