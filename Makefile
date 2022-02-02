@@ -74,13 +74,13 @@ run_db:
 		bitnami/mariadb:latest
 
 shell_app:
-	@docker exec -it $(PROJECT_NAME) bash -l
+	@docker exec -u root -it $(PROJECT_NAME) bash -l
 
 shell_dev:
-	@docker exec -it $(PROJECT_NAME)-dev bash -l
+	@docker exec -u root -it $(PROJECT_NAME)-dev bash -l
 
 shell_db:
-	@docker exec -it $(OMEKA_DB_HOST) bash -l
+	@docker exec -u root -it $(OMEKA_DB_HOST) bash -l
 
 stop_dev:
 	@docker stop $(PROJECT_NAME)-dev
@@ -102,6 +102,8 @@ stop_app:
 
 stop_db:
 	@docker stop $(OMEKA_DB_HOST)
+
+reload: stop_app run_app
 
 down: down_app down_db 
 

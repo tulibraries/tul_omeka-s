@@ -37,43 +37,21 @@ RUN apk add -U --no-cache \
       imagemagick-dev=7.1.0.16-r0 \
       libxpm-dev=3.5.13-r0 \
       libwebp-dev=1.2.2-r0 \
+      php7-session=7.4.27-r0 \
+      php7-ctype=7.4.27-r0 \
       php7-mcrypt=1.0.4-r0 \
       php7-imagick=3.6.0-r0 \
-&&  curl -sSLf \
-      -o /usr/local/bin/docker-php-entrypoint \
-      https://raw.githubusercontent.com/docker-library/php/master/docker-php-entrypoint \
-&&  chmod +x /usr/local/bin/docker-php-entrypoint \
-&&  curl -sSLf \
-      -o /usr/local/bin/docker-php-ext-configure \
-      https://raw.githubusercontent.com/docker-library/php/master/docker-php-ext-configure \
-&&  chmod +x /usr/local/bin/docker-php-ext-configure \
-&&  curl -sSLf \
-      -o /usr/local/bin/docker-php-ext-enable \
-      https://raw.githubusercontent.com/docker-library/php/master/docker-php-ext-enable \
-&&  chmod +x /usr/local/bin/docker-php-ext-enable \
-&&  curl -sSLf \
-      -o /usr/local/bin/docker-php-ext-install \
-      https://raw.githubusercontent.com/docker-library/php/master/docker-php-ext-install \
-&&  chmod +x /usr/local/bin/docker-php-ext-install \
-&&  curl -sSLf \
-      -o /usr/local/bin/docker-php-source \
-      https://raw.githubusercontent.com/docker-library/php/master/docker-php-source \
-&&  chmod +x /usr/local/bin/docker-php-source \
-&&  curl -sSLf \
-      -o /usr/src/php.tar.xz \
-      https://www.php.net/distributions/php-7.4.25.tar.xz \
-&& pecl channel-update pecl.php.net \
-&&  curl -sSLf \
-      -o /usr/local/bin/install-php-extensions \
-      https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions \
-&&  chmod +x /usr/local/bin/install-php-extensions \
+      php7-pdo=7.4.27-r0 \
+      php7-iconv=7.4.27-r0 \
+      php7-gd=7.4.27-r0 \
+      php7-openssl=7.4.27-r0 \
+      php7-mysqlnd=7.4.27-r0 \
+      php7-mysqli=7.4.27-r0 \
+      php7-pdo_mysql=7.4.27-r0 \
+      php7-pdo_mysql=7.4.27-r0 \
+      php7-json=7.4.27-r0 \
+      php7-phar=7.4.27-r0 \
 &&  mkdir /conf.d \
-&&  install-php-extensions gd \
-&&  docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/ \
-&&  docker-php-ext-install -j"$(nproc)" iconv pdo pdo_mysql mysqli gd \
-&&  yes | pecl install  mcrypt-1.0.3 || echo "pecl install encrypt: $?" \
-&&  docker-php-ext-enable mcrypt || echo "docker-pop-ext-enable mcrypt: $?" \
-&&  yes | pecl install imagick || echo "pecl install imagick $?" && docker-php-ext-enable imagick \
 &&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.1.1/omeka-s-3.1.1.zip" -O latest_omeka_s.zip \
 &&  unzip -q latest_omeka_s.zip -d /var/www/ \
 &&  rm latest_omeka_s.zip \
@@ -85,15 +63,18 @@ RUN apk add -U --no-cache \
 &&  cp .htaccess /var/www/html/.htaccess \
 &&  cp database.ini /var/www/html/config/ \
 &&  cp local.config.php /var/www/html/config/ \
-&&  echo "SKIP: chown -R www-data:www-data /var/www/html/" \
-&&  chmod 766 /var/www/html/config/database.ini \
-&&  chmod 766 /var/www/html/config/local.config.php \
-&&  chmod 766 /var/www/html/.htaccess \
 &&  cp -pr files/apache2/httpd.conf /etc/apache2 \
 &&  echo "ServerName localhost" >> /etc/apache2/httpd.conf \
+&&  chown -R www-data:www-data /var/www/html/ \
+&&  chown -R www-data:www-data /var/log/apache2/ \
+&&  chown -R www-data:www-data /run/apache2/ \
+&&  chmod 600 /var/www/html/config/database.ini \
+&&  chmod 600 /var/www/html/config/local.config.php \
+&&  chmod 600 /var/www/html/.htaccess \
 &&  wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -O "awscliv2.zip" && unzip awscliv2.zip && aws/install \
 &&  rm -rf /build 
 
 WORKDIR /var/www/html
 
+USER www-data
 CMD ["httpd-foreground", "-d", "/etc/apache2", "-f", "/etc/apache2/httpd.conf"]
