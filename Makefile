@@ -76,6 +76,9 @@ run_db:
 shell_app:
 	@docker exec -u root -it $(PROJECT_NAME) bash -l
 
+log_app:
+	@docker exec -u root -it $(PROJECT_NAME) tail -f /var/log/apache2/error.log
+
 shell_dev:
 	@docker exec -u root -it $(PROJECT_NAME)-dev bash -l
 
@@ -129,11 +132,11 @@ shell:
 scan:
 	@if [ $(CLEAR_CACHES) == yes ]; \
 		then \
-			trivy image -c $(HARBOR)/$(IMAGE):$(VERSION); \
+			trivy $(HARBOR)/$(IMAGE):$(VERSION); \
 		fi
 	@if [ $(CI) == false ]; \
 		then \
-			trivy $(HARBOR)/$(IMAGE):$(VERSION); \
+			trivy image $(HARBOR)/$(IMAGE):$(VERSION); \
 		fi
 
 deploy: scan lint

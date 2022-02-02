@@ -50,10 +50,11 @@ RUN apk add -U --no-cache \
       php7-mysqli=7.4.27-r0 \
       php7-pdo_mysql=7.4.27-r0 \
       php7-pdo_mysql=7.4.27-r0 \
+      php7-fileinfo=7.4.27-r0 \
+      php7-mbstring=7.4.27-r0 \
       php7-json=7.4.27-r0 \
       php7-phar=7.4.27-r0 \
-&&  mkdir /conf.d \
-&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.0.2/omeka-s-3.0.2.zip" -O latest_omeka_s.zip \
+&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.1.1/omeka-s-3.1.1.zip" -O latest_omeka_s.zip \
 &&  unzip -q latest_omeka_s.zip -d /var/www/ \
 &&  rm latest_omeka_s.zip \
 &&  rm -rf /var/www/html/ \
@@ -71,8 +72,7 @@ RUN apk add -U --no-cache \
 &&  chown -R www-data:www-data /run/apache2/ \
 &&  chmod 600 /var/www/html/config/database.ini \
 &&  chmod 600 /var/www/html/config/local.config.php \
-&&  chmod 600 /var/www/html/.htaccess 
-##  wget "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -O "awscliv2.zip" && unzip awscliv2.zip && aws/install
+&&  chmod 600 /var/www/html/.htaccess
 
 WORKDIR /var/www/html
 
