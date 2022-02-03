@@ -41,7 +41,8 @@ build_app:
 		--no-cache .
 
 build_dev:
-	@docker build --build-arg RAILS_MASTER_KEY=$(RAILS_MASTER_KEY) \
+	@docker build \
+		--progress plain \
 		--tag $(IMAGE):$(VERSION)-dev \
 		--tag $(IMAGE):dev \
 		--file .docker/app/Dockerfile.dev \
@@ -58,7 +59,7 @@ run_app:
 		$(HARBOR)/$(IMAGE):$(VERSION)
 
 run_dev:
-	@docker run --name=$(PROJECT_NAME)-dev -d -p 127.0.0.1:3000:3000/tcp \
+	@docker run --name=$(PROJECT_NAME)-dev -d -p 127.0.0.1:80:80/tcp \
 		$(DEFAULT_RUN_ARGS) \
 		--mount type=bind,source=$(PWD),target=/app \
 		$(IMAGE):dev sleep infinity
@@ -73,16 +74,21 @@ run_db:
 		bitnami/mariadb:latest
 
 shell_app:
-	@docker exec -it $(PROJECT_NAME) bash -l
+	@docker exec -u root -it $(PROJECT_NAME) bash -l
+
+log_app:
+	@docker exec -u root -it $(PROJECT_NAME) tail -f /var/log/apache2/error.log
 
 shell_dev:
-	@docker exec -it $(PROJECT_NAME)-dev bash -l
+	@docker exec -u root -it $(PROJECT_NAME)-dev bash -l
 
 shell_db:
-	@docker exec -it $(OMEKA_DB_HOST) bash -l
+	@docker exec -u root -it $(OMEKA_DB_HOST) bash -l
 
 stop_dev:
 	@docker stop $(PROJECT_NAME)-dev
+
+reload_dev: stop_dev run_dev
 
 start: start_db run_app
 
@@ -99,6 +105,8 @@ stop_app:
 
 stop_db:
 	@docker stop $(OMEKA_DB_HOST)
+
+reload: stop_app run_app
 
 down: down_app down_db 
 
@@ -124,11 +132,11 @@ shell:
 scan:
 	@if [ $(CLEAR_CACHES) == yes ]; \
 		then \
-			trivy image -c $(HARBOR)/$(IMAGE):$(VERSION); \
+			trivy $(HARBOR)/$(IMAGE):$(VERSION); \
 		fi
 	@if [ $(CI) == false ]; \
 		then \
-			trivy $(HARBOR)/$(IMAGE):$(VERSION); \
+			trivy image $(HARBOR)/$(IMAGE):$(VERSION); \
 		fi
 
 deploy: scan lint
