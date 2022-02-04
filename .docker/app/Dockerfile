@@ -22,6 +22,8 @@ RUN apk add -U --no-cache \
       libxslt-dev=1.1.34-r1 \
       mariadb-dev=10.6.4-r2 \
       mariadb-client=10.6.4-r2 \
+      expat=2.4.4-r0 \
+      libuuid=2.37.3-r0 \
       php7=7.4.27-r0 \
       php7-apache2=7.4.27-r0 \
       php7-dev=7.4.27-r0 \
@@ -53,11 +55,8 @@ RUN apk add -U --no-cache \
       php7-mbstring=7.4.27-r0 \
       php7-json=7.4.27-r0 \
       php7-phar=7.4.27-r0 \
-&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.1.1/omeka-s-3.1.1.zip" -O latest_omeka_s.zip \
-&&  unzip -q latest_omeka_s.zip -d /var/www/ \
-&&  rm latest_omeka_s.zip \
 &&  rm -rf /var/www/html/ \
-&&  mv /var/www/omeka-s/ /var/www/html/ \
+&&  mv omeka-s/ /var/www/html/ \
 &&  mkdir -p /var/www/html/config/ && mkdir -p /var/www/html/files/ && mkdir -p /var/www/html/modules/ && mkdir -p /var/www/html/themes/  \
 &&  mkdir -p /etc/ImageMagick-6/ \
 &&  cp imagemagick-policy.xml /etc/ImageMagick-6/policy.xml \

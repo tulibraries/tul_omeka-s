@@ -85,3 +85,12 @@ and configured from the Sites menu item on the left side of the administrative d
 - https://github.com/omeka-s-themes/foundation-s/releases/download/v1.1.0/theme-foundation-s-v1.1.0.zip
 - https://github.com/omeka-s-themes/thanksroy/releases/download/v1.0.0/theme-thanksroy-v1.0.0.zip
 - https://github.com/omeka-s-themes/thedaily/releases/download/v1.6.1/theme-thedaily-v1.6.1.zip
+
+# Build from Omeka-S Source
+
+```bash
+git clone https://github.com/omeka/omeka-s.git
+cd omeka-s
+npm install
+npx gulp init
+``
