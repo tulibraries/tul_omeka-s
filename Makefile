@@ -9,7 +9,7 @@ IMAGE ?= tulibraries/$(PROJECT_NAME)
 HARBOR ?= harbor.k8s.temple.edu
 CLEAR_CACHES ?= no
 CI ?= false
-OMEKA_DB_HOST ?= omeka-db
+OMEKA_DB_HOST ?= host.docker.internal
 OMEKA_DB_NAME ?= omeka
 OMEKA_DB_USER ?= omeka
 OMEKA_DB_PASSWORD ?= omeka
@@ -40,6 +40,13 @@ build_app:
 		--file .docker/app/Dockerfile \
 		--no-cache .
 
+build_src:
+	@docker build \
+		--tag $(HARBOR)/$(IMAGE):$(VERSION) \
+		--tag $(HARBOR)/$(IMAGE):latest \
+		--file .docker/app/Dockerfile.src \
+		--no-cache .
+
 build_dev:
 	@docker build \
 		--progress plain \
@@ -61,11 +68,11 @@ run_app:
 run_dev:
 	@docker run --name=$(PROJECT_NAME)-dev -d -p 127.0.0.1:80:80/tcp \
 		$(DEFAULT_RUN_ARGS) \
-		--mount type=bind,source=$(PWD),target=/app \
+		--mount type=bind,source=$(PWD),target=/build \
 		$(IMAGE):dev sleep infinity
 
 run_db:
-	@docker run --name=$(OMEKA_DB_HOST) -d -p 127.0.0.1:3306:3306 \
+	@docker run --name=omeka-db -d -p 127.0.0.1:3306:3306 \
 	  -e MARIADB_ROOT_PASSWORD=omeka \
     -e MARIADB_DATABASE=omeka \
     -e MARIADB_USER=omeka \
@@ -83,7 +90,7 @@ shell_dev:
 	@docker exec -u root -it $(PROJECT_NAME)-dev bash -l
 
 shell_db:
-	@docker exec -u root -it $(OMEKA_DB_HOST) bash -l
+	@docker exec -u root -it omeka-db bash -l
 
 stop_dev:
 	@docker stop $(PROJECT_NAME)-dev
@@ -96,7 +103,7 @@ start_app:
 	@docker start $(PROJECT_NAME)
 
 start_db:
-	@docker start $(OMEKA_DB_HOST)
+	@docker start omeka-db
 
 stop: stop_app stop_db
 
@@ -104,7 +111,7 @@ stop_app:
 	@docker stop $(PROJECT_NAME)
 
 stop_db:
-	@docker stop $(OMEKA_DB_HOST)
+	@docker stop omeka-db
 
 reload: stop_app run_app
 
@@ -114,8 +121,8 @@ down_app:
 	@docker stop $(PROJECT_NAME)
 
 down_db:
-	@docker stop $(OMEKA_DB_HOST)
-	@docker rm $(OMEKA_DB_HOST)
+	@docker stop omeka-db
+	@docker rm omeka-db
 
 lint:
 	@if [ $(CI) == false ]; \
@@ -128,6 +135,9 @@ shell:
 		$(DEFAULT_RUN_ARGS) \
 		--entrypoint=sh --user=root \
 		$(HARBOR)/$(IMAGE):$(VERSION)
+
+scan_dev:
+	trivy image $(IMAGE):dev; \
 
 scan:
 	@if [ $(CLEAR_CACHES) == yes ]; \
