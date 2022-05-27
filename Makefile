@@ -14,6 +14,7 @@ OMEKA_DB_NAME ?= omeka
 OMEKA_DB_USER ?= omeka
 OMEKA_DB_PASSWORD ?= omeka
 MARIADB_ROOT_PASSWORD ?= omeka
+BUILD_PROGRESS ?= auto
 
 DEFAULT_RUN_ARGS ?= -e "EXECJS_RUNTIME=Disabled" \
     -e "K8=yes" \
@@ -30,6 +31,7 @@ showenv:
 	@echo "OMEKA_DB_HOST: $(OMEKA_DB_HOST)"
 	@echo "OMEKA_DB_NAME: $(OMEKA_DB_NAME)"
 	@echo "OMEKA_DB_USER: $(OMEKA_DB_USER)"
+	@echo "VERSION: $(VERSION)"
 
 build: pull_db build_app
 
@@ -38,6 +40,7 @@ build_app:
 		--tag $(HARBOR)/$(IMAGE):$(VERSION) \
 		--tag $(HARBOR)/$(IMAGE):latest \
 		--file .docker/app/Dockerfile \
+		--progress=$(BUILD_PROGRESS) \
 		--no-cache .
 
 build_src:
@@ -45,6 +48,7 @@ build_src:
 		--tag $(HARBOR)/$(IMAGE):$(VERSION) \
 		--tag $(HARBOR)/$(IMAGE):latest \
 		--file .docker/app/Dockerfile.src \
+		--progress=$(BUILD_PROGRESS) \
 		--no-cache .
 
 build_dev:
@@ -53,6 +57,7 @@ build_dev:
 		--tag $(IMAGE):$(VERSION)-dev \
 		--tag $(IMAGE):dev \
 		--file .docker/app/Dockerfile.dev \
+		--progress=$(BUILD_PROGRESS) \
 		--no-cache .
 
 pull_db:
