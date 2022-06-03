@@ -1,5 +1,4 @@
 FROM harbor.k8s.temple.edu/library/httpd:2.4-alpine
-FROM harbor.k8s.temple.edu/library/httpd@sha256:65c08bcce19252fa687774bd4e76ea867f790ede67426517af497d25b93d3400
 
 WORKDIR /build
 
@@ -23,10 +22,6 @@ RUN apk add -U --no-cache \
       libxslt-dev=1.1.35-r0 \
       mariadb-dev=10.6.8-r0 \
       mariadb-client=10.6.8-r0 \
-      php7=7.4.29-r0 \
-      php7-apache2=7.4.29-r0 \
-      php7-dev=7.4.29-r0 \
-      php7-pear=7.4.29-r0 \
       wget=1.21.3-r0 \
       curl=7.83.1-r1 \
       ghostscript=9.56.1-r0 \
@@ -38,23 +33,24 @@ RUN apk add -U --no-cache \
       imagemagick-dev=7.1.0.35-r0 \
       libxpm-dev=3.5.13-r0 \
       libwebp-dev=1.2.2-r0 \
-      php7-session=7.4.29-r0 \
-      php7-ctype=7.4.29-r0 \
-      php7-mcrypt=1.0.4-r0 \
-      php7-imagick=3.6.0-r0 \
-      php7-pdo=7.4.29-r0 \
-      php7-iconv=7.4.29-r0 \
-      php7-gd=7.4.29-r0 \
-      php7-openssl=7.4.29-r0 \
-      php7-mysqlnd=7.4.29-r0 \
-      php7-mysqli=7.4.29-r0 \
-      php7-pdo_mysql=7.4.29-r0 \
-      php7-pdo_mysql=7.4.29-r0 \
-      php7-fileinfo=7.4.29-r0 \
-      php7-mbstring=7.4.29-r0 \
-      php7-json=7.4.29-r0 \
-      php7-phar=7.4.29-r0 \
-&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.2.0/omeka-s-3.2.0.zip" -O latest_omeka_s.zip \
+      php8=8.0.19-r1 \
+      php8-apache2=8.0.19-r1 \
+      php8-dev=8.0.19-r1 \
+      php8-pear=8.0.19-r1 \
+      php8-session=8.0.19-r1 \
+      php8-ctype=8.0.19-r1 \
+      php8-pdo=8.0.19-r1 \
+      php8-iconv=8.0.19-r1 \
+      php8-gd=8.0.19-r1 \
+      php8-openssl=8.0.19-r1 \
+      php8-mysqlnd=8.0.19-r1 \
+      php8-mysqli=8.0.19-r1 \
+      php8-pdo_mysql=8.0.19-r1 \
+      php8-fileinfo=8.0.19-r1 \
+      php8-mbstring=8.0.19-r1 \
+      php8-phar=8.0.19-r1 \
+&&  pecl install -o -f imagick \
+&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.2.1/omeka-s-3.2.1.zip" -O latest_omeka_s.zip \
 &&  unzip -q latest_omeka_s.zip -d /var/www/ \
 &&  rm latest_omeka_s.zip \
 &&  rm -rf /var/www/html/ \
