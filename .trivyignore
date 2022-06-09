@@ -1,3 +1,4 @@
 # unfixed vulnerabilities as of 2022-02-24
 # There are no fixed versions presented by Trivy
 CVE-2021-3007
+CVE-2022-23598
