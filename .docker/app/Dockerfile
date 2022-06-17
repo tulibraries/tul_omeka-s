@@ -9,51 +9,48 @@ USER root
 ENV PHPIZE_DEPS="autoconf dpkg-dev file g++ gcc libc-dev make pkgconfig re2c"
 
 RUN apk add -U --no-cache \
-      bash=5.1.16-r0 \
-      libxslt=1.1.34-r1 \
-      tzdata=2021e-r0 \
-      shared-mime-info=2.1-r0 \
-      imagemagick=7.1.0.16-r0 \
-      mariadb-connector-c=3.1.13-r2 \
+      bash=5.1.16-r2 \
+      libxslt=1.1.35-r0 \
+      tzdata=2022a-r0 \
+      shared-mime-info=2.2-r0 \
+      imagemagick=7.1.0.35-r0 \
+      mariadb-connector-c=3.1.13-r4 \
 &&  apk add -U --no-cache --virtual build-dependencies \
-      git=2.34.1-r0 \
-      build-base=0.5-r2 \
-      dpkg=1.20.9-r0 \
-      libxslt-dev=1.1.34-r1 \
-      mariadb-dev=10.6.4-r2 \
-      mariadb-client=10.6.4-r2 \
-      php7=7.4.28-r0 \
-      php7-apache2=7.4.28-r0 \
-      php7-dev=7.4.28-r0 \
-      php7-pear=7.4.28-r0 \
-      wget=1.21.2-r2 \
-      curl=7.80.0-r0 \
-      ghostscript=9.55.0-r0 \
-      poppler-utils=21.11.0-r0 \
+      git=2.36.1-r0 \
+      build-base=0.5-r3 \
+      dpkg=1.21.8-r0 \
+      libxslt-dev=1.1.35-r0 \
+      mariadb-dev=10.6.8-r0 \
+      mariadb-client=10.6.8-r0 \
+      wget=1.21.3-r0 \
+      curl=7.83.1-r1 \
+      ghostscript=9.56.1-r0 \
+      poppler-utils=22.05.0-r0 \
       libpng-dev=1.6.37-r1 \
-      libjpeg-turbo-dev=2.1.2-r0 \
-      freetype-dev=2.11.0-r0 \
-      imagemagick-libs=7.1.0.16-r0 \
-      imagemagick-dev=7.1.0.16-r0 \
+      libjpeg-turbo-dev=2.1.3-r1 \
+      freetype-dev=2.12.1-r0 \
+      imagemagick-libs=7.1.0.35-r0 \
+      imagemagick-dev=7.1.0.35-r0 \
       libxpm-dev=3.5.13-r0 \
       libwebp-dev=1.2.2-r0 \
-      php7-session=7.4.28-r0 \
-      php7-ctype=7.4.28-r0 \
-      php7-mcrypt=1.0.4-r0 \
-      php7-imagick=3.6.0-r0 \
-      php7-pdo=7.4.28-r0 \
-      php7-iconv=7.4.28-r0 \
-      php7-gd=7.4.28-r0 \
-      php7-openssl=7.4.28-r0 \
-      php7-mysqlnd=7.4.28-r0 \
-      php7-mysqli=7.4.28-r0 \
-      php7-pdo_mysql=7.4.28-r0 \
-      php7-pdo_mysql=7.4.28-r0 \
-      php7-fileinfo=7.4.28-r0 \
-      php7-mbstring=7.4.28-r0 \
-      php7-json=7.4.28-r0 \
-      php7-phar=7.4.28-r0 \
-&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.1.1/omeka-s-3.1.1.zip" -O latest_omeka_s.zip \
+      php8=8.0.20-r0 \
+      php8-apache2=8.0.20-r0 \
+      php8-dev=8.0.20-r0 \
+      php8-pear=8.0.20-r0 \
+      php8-session=8.0.20-r0 \
+      php8-ctype=8.0.20-r0 \
+      php8-pdo=8.0.20-r0 \
+      php8-iconv=8.0.20-r0 \
+      php8-gd=8.0.20-r0 \
+      php8-openssl=8.0.20-r0 \
+      php8-mysqlnd=8.0.20-r0 \
+      php8-mysqli=8.0.20-r0 \
+      php8-pdo_mysql=8.0.20-r0 \
+      php8-fileinfo=8.0.20-r0 \
+      php8-mbstring=8.0.20-r0 \
+      php8-phar=8.0.20-r0 \
+&&  pecl install -o -f imagick \
+&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.2.1/omeka-s-3.2.1.zip" -O latest_omeka_s.zip \
 &&  unzip -q latest_omeka_s.zip -d /var/www/ \
 &&  rm latest_omeka_s.zip \
 &&  rm -rf /var/www/html/ \
@@ -72,7 +69,7 @@ RUN apk add -U --no-cache \
 &&  chmod 600 /var/www/html/config/database.ini \
 &&  chmod 600 /var/www/html/config/local.config.php \
 &&  chmod 600 /var/www/html/.htaccess \
-&&  rm -rf /build 
+&&  rm -rf /build
 
 WORKDIR /var/www/html
 
