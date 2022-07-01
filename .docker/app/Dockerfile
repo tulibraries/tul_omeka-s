@@ -23,7 +23,7 @@ RUN apk add -U --no-cache \
       mariadb-dev=10.6.8-r0 \
       mariadb-client=10.6.8-r0 \
       wget=1.21.3-r0 \
-      curl=7.83.1-r1 \
+      curl=7.83.1-r2 \
       ghostscript=9.56.1-r0 \
       poppler-utils=22.05.0-r0 \
       libpng-dev=1.6.37-r1 \
@@ -65,6 +65,8 @@ RUN apk add -U --no-cache \
 &&  echo "ServerName localhost" >> /etc/apache2/httpd.conf \
 &&  chown -R www-data:www-data /var/www/html/ \
 &&  chown -R www-data:www-data /var/log/apache2/ \
+&&  mkdir /var/www/log \
+&&  chown -R www-data:www-data /var/www/logs/ \
 &&  chown -R www-data:www-data /run/apache2/ \
 &&  chmod 600 /var/www/html/config/database.ini \
 &&  chmod 600 /var/www/html/config/local.config.php \
