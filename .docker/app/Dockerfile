@@ -16,7 +16,7 @@ RUN apk add -U --no-cache \
       imagemagick=7.1.0.35-r0 \
       mariadb-connector-c=3.1.13-r4 \
 &&  apk add -U --no-cache --virtual build-dependencies \
-      git=2.36.1-r0 \
+      git=2.36.2-r0 \
       build-base=0.5-r3 \
       dpkg=1.21.8-r0 \
       libxslt-dev=1.1.35-r0 \
@@ -33,29 +33,29 @@ RUN apk add -U --no-cache \
       imagemagick-dev=7.1.0.35-r0 \
       libxpm-dev=3.5.13-r0 \
       libwebp-dev=1.2.2-r0 \
-      php8=8.0.20-r0 \
-      php8-apache2=8.0.20-r0 \
-      php8-dev=8.0.20-r0 \
-      php8-pear=8.0.20-r0 \
-      php8-session=8.0.20-r0 \
-      php8-ctype=8.0.20-r0 \
-      php8-pdo=8.0.20-r0 \
-      php8-iconv=8.0.20-r0 \
-      php8-gd=8.0.20-r0 \
-      php8-openssl=8.0.20-r0 \
-      php8-mysqlnd=8.0.20-r0 \
-      php8-mysqli=8.0.20-r0 \
-      php8-pdo_mysql=8.0.20-r0 \
-      php8-fileinfo=8.0.20-r0 \
-      php8-mbstring=8.0.20-r0 \
-      php8-phar=8.0.20-r0 \
+      php8=8.0.21-r0 \
+      php8-apache2=8.0.21-r0 \
+      php8-dev=8.0.21-r0 \
+      php8-pear=8.0.21-r0 \
+      php8-session=8.0.21-r0 \
+      php8-ctype=8.0.21-r0 \
+      php8-pdo=8.0.21-r0 \
+      php8-iconv=8.0.21-r0 \
+      php8-gd=8.0.21-r0 \
+      php8-openssl=8.0.21-r0 \
+      php8-mysqlnd=8.0.21-r0 \
+      php8-mysqli=8.0.21-r0 \
+      php8-pdo_mysql=8.0.21-r0 \
+      php8-fileinfo=8.0.21-r0 \
+      php8-mbstring=8.0.21-r0 \
+      php8-phar=8.0.21-r0 \
 &&  pecl install -o -f imagick \
 &&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.2.1/omeka-s-3.2.1.zip" -O latest_omeka_s.zip \
 &&  unzip -q latest_omeka_s.zip -d /var/www/ \
 &&  rm latest_omeka_s.zip \
 &&  rm -rf /var/www/html/ \
 &&  mv /var/www/omeka-s/ /var/www/html/ \
-&&  mkdir -p /var/www/html/config/ && mkdir -p /var/www/html/files/ && mkdir -p /var/www/html/modules/ && mkdir -p /var/www/html/themes/  \
+&&  mkdir -p /var/www/html/config/ && mkdir -p /var/www/html/files/ && mkdir -p /var/www/html/modules/ && mkdir -p /var/www/html/themes/ \
 &&  mkdir -p /etc/ImageMagick-6/ \
 &&  cp imagemagick-policy.xml /etc/ImageMagick-6/policy.xml \
 &&  cp .htaccess /var/www/html/.htaccess \
@@ -64,13 +64,12 @@ RUN apk add -U --no-cache \
 &&  cp -pr files/apache2/httpd.conf /etc/apache2 \
 &&  echo "ServerName localhost" >> /etc/apache2/httpd.conf \
 &&  chown -R www-data:www-data /var/www/html/ \
-&&  chown -R www-data:www-data /var/log/apache2/ \
-&&  mkdir /var/www/log \
-&&  chown -R www-data:www-data /var/www/logs/ \
 &&  chown -R www-data:www-data /run/apache2/ \
+&&  chown -R www-data:www-data /var/log/apache2/ \
 &&  chmod 600 /var/www/html/config/database.ini \
 &&  chmod 600 /var/www/html/config/local.config.php \
 &&  chmod 600 /var/www/html/.htaccess \
+&&  chmod 740 /var/www/logs/ \
 &&  rm -rf /build
 
 WORKDIR /var/www/html
