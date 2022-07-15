@@ -15,6 +15,7 @@ RUN apk add -U --no-cache \
       shared-mime-info=2.2-r0 \
       imagemagick=7.1.0.35-r0 \
       mariadb-connector-c=3.1.13-r4 \
+      sudo=1.9.10-r0 \
 &&  apk add -U --no-cache --virtual build-dependencies \
       git=2.36.2-r0 \
       build-base=0.5-r3 \
@@ -63,13 +64,15 @@ RUN apk add -U --no-cache \
 &&  cp local.config.php /var/www/html/config/ \
 &&  cp -pr files/apache2/httpd.conf /etc/apache2 \
 &&  echo "ServerName localhost" >> /etc/apache2/httpd.conf \
+&&  touch /var/www/logs/errors.log \
 &&  chown -R www-data:www-data /var/www/html/ \
 &&  chown -R www-data:www-data /run/apache2/ \
 &&  chown -R www-data:www-data /var/log/apache2/ \
+&&  chown -R www-data:www-data /var/www/logs/errors.log \
 &&  chmod 600 /var/www/html/config/database.ini \
 &&  chmod 600 /var/www/html/config/local.config.php \
 &&  chmod 600 /var/www/html/.htaccess \
-&&  chmod 740 /var/www/logs/ \
+&&  chmod -R 740 /var/www/logs/ \
 &&  rm -rf /build
 
 WORKDIR /var/www/html
