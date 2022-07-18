@@ -33,7 +33,7 @@ RUN apk add -U --no-cache \
       imagemagick-libs=7.1.0.35-r0 \
       imagemagick-dev=7.1.0.35-r0 \
       libxpm-dev=3.5.13-r0 \
-      libwebp-dev=1.2.2-r0 \
+      libwebp-dev=1.2.3-r0 \
       php8=8.0.21-r0 \
       php8-apache2=8.0.21-r0 \
       php8-dev=8.0.21-r0 \
@@ -72,7 +72,8 @@ RUN apk add -U --no-cache \
 &&  chmod 600 /var/www/html/config/database.ini \
 &&  chmod 600 /var/www/html/config/local.config.php \
 &&  chmod 600 /var/www/html/.htaccess \
-&&  chmod -R 740 /var/www/logs/ \
+&&  chmod -R 777 /var/www/logs/ \
+&&  chmod -R 777 /var/log/apache2/ \
 &&  rm -rf /build
 
 WORKDIR /var/www/html
