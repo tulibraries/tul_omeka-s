@@ -64,11 +64,9 @@ RUN apk add -U --no-cache \
 &&  cp local.config.php /var/www/html/config/ \
 &&  cp -pr files/apache2/httpd.conf /etc/apache2 \
 &&  echo "ServerName localhost" >> /etc/apache2/httpd.conf \
-&&  touch /var/www/logs/errors.log \
 &&  chown -R www-data:www-data /var/www/html/ \
 &&  chown -R www-data:www-data /run/apache2/ \
 &&  chown -R www-data:www-data /var/log/apache2/ \
-&&  chown -R www-data:www-data /var/www/logs/errors.log \
 &&  chmod 600 /var/www/html/config/database.ini \
 &&  chmod 600 /var/www/html/config/local.config.php \
 &&  chmod 600 /var/www/html/.htaccess \
