@@ -15,7 +15,6 @@ RUN apk add -U --no-cache \
       shared-mime-info=2.2-r0 \
       imagemagick=7.1.0.35-r0 \
       mariadb-connector-c=3.1.13-r4 \
-      sudo=1.9.10-r0 \
 &&  apk add -U --no-cache --virtual build-dependencies \
       git=2.36.2-r0 \
       build-base=0.5-r3 \
@@ -56,7 +55,7 @@ RUN apk add -U --no-cache \
 &&  rm latest_omeka_s.zip \
 &&  rm -rf /var/www/html/ \
 &&  mv /var/www/omeka-s/ /var/www/html/ \
-&&  mkdir -p /var/www/html/config/ && mkdir -p /var/www/html/files/ && mkdir -p /var/www/html/modules/ && mkdir -p /var/www/html/themes/ \
+&&  mkdir -p /var/www/html/config/ && mkdir -p /var/www/html/files/ && mkdir -p /var/www/html/modules/ && mkdir -p /var/www/html/themes/  \
 &&  mkdir -p /etc/ImageMagick-6/ \
 &&  cp imagemagick-policy.xml /etc/ImageMagick-6/policy.xml \
 &&  cp .htaccess /var/www/html/.htaccess \
@@ -65,13 +64,11 @@ RUN apk add -U --no-cache \
 &&  cp -pr files/apache2/httpd.conf /etc/apache2 \
 &&  echo "ServerName localhost" >> /etc/apache2/httpd.conf \
 &&  chown -R www-data:www-data /var/www/html/ \
-&&  chown -R www-data:www-data /run/apache2/ \
 &&  chown -R www-data:www-data /var/log/apache2/ \
+&&  chown -R www-data:www-data /run/apache2/ \
 &&  chmod 600 /var/www/html/config/database.ini \
 &&  chmod 600 /var/www/html/config/local.config.php \
 &&  chmod 600 /var/www/html/.htaccess \
-&&  chmod -R 777 /var/www/logs/ \
-&&  chmod -R 777 /var/log/apache2/ \
 &&  rm -rf /build
 
 WORKDIR /var/www/html
