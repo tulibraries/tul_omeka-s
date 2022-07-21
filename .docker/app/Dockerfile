@@ -50,7 +50,7 @@ RUN apk add -U --no-cache \
       php8-mbstring=8.0.21-r0 \
       php8-phar=8.0.21-r0 \
 &&  pecl install -o -f imagick \
-&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.2.1/omeka-s-3.2.1.zip" -O latest_omeka_s.zip \
+&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.2.2/omeka-s-3.2.2.zip" -O latest_omeka_s.zip \
 &&  unzip -q latest_omeka_s.zip -d /var/www/ \
 &&  rm latest_omeka_s.zip \
 &&  rm -rf /var/www/html/ \
