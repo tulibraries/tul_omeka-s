@@ -67,6 +67,7 @@ RUN apk add -U --no-cache \
 &&  chown -R www-data:www-data /var/www/html/ \
 &&  chown -R www-data:www-data /var/log/apache2/ \
 &&  chown -R www-data:www-data /run/apache2/ \
+&&  chown -R www-data:www-data /tmp/install-plugins.sh \
 &&  chmod 600 /var/www/html/config/database.ini \
 &&  chmod 600 /var/www/html/config/local.config.php \
 &&  chmod 600 /var/www/html/.htaccess \
