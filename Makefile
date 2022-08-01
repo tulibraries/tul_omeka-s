@@ -15,6 +15,10 @@ OMEKA_DB_USER ?= omeka
 OMEKA_DB_PASSWORD ?= omeka
 MARIADB_ROOT_PASSWORD ?= omeka
 BUILD_PROGRESS ?= auto
+MAIL_SERVER_NAME ?= "Gmail"
+MAIL_SERVER ?= "smtp.gmail.com"
+MAIL_ADDRESS ?= "omeka@example.com"
+MAIL_PASSWORD ?= replace_me
 
 DEFAULT_RUN_ARGS ?= -e "EXECJS_RUNTIME=Disabled" \
     -e "K8=yes" \
@@ -22,6 +26,10 @@ DEFAULT_RUN_ARGS ?= -e "EXECJS_RUNTIME=Disabled" \
     -e "OMEKA_DB_NAME=$(OMEKA_DB_NAME)" \
     -e "OMEKA_DB_USER=$(OMEKA_DB_USER)" \
     -e "OMEKA_DB_PASSWORD=$(OMEKA_DB_PASSWORD)" \
+    -e "MAIL_SERVER_NAME=$(MAIL_SERVER_NAME)" \
+    -e "MAIL_SERVER=$(MAIL_SERVER)" \
+    -e "MAIL_ADDRESS=$(MAIL_ADDRESS)" \
+    -e "MAIL_PASSWORD=$(MAIL_PASSWORD)" \
 		--mount type=bind,source="$(shell pwd)/volume/files",target=/var/www/html/files \
 		--mount type=bind,source="$(shell pwd)/volume/modules",target=/var/www/html/modules \
 		--mount type=bind,source="$(shell pwd)/volume/themes",target=/var/www/html/themes \
