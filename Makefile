@@ -71,9 +71,15 @@ build_dev:
 pull_db:
 	@docker pull bitnami/mariadb:latest
 
-up: run_db run_app
+up: run_db init-app run_app
 
-run_app:
+init-app:
+	@docker run --name=$(PROJECT_NAME) \
+ 		--entrypoint=/bin/sh \
+		$(DEFAULT_RUN_ARGS) \
+		$(HARBOR)/$(IMAGE):$(VERSION) -c '/tmp/install-plugins.sh'
+
+run: init-app
 	@docker run --name=$(PROJECT_NAME) -d -p 127.0.0.1:80:80/tcp \
 		$(DEFAULT_RUN_ARGS) \
 		$(HARBOR)/$(IMAGE):$(VERSION)
@@ -85,7 +91,7 @@ run_dev:
 		$(IMAGE):dev sleep infinity
 
 run_db:
-	@docker run --name=omeka-db -d -p 127.0.0.1:3306:3306 \
+	@docker run --name=$(PROJECT_NAME)-db -d -p 127.0.0.1:3306:3306 \
 	  -e MARIADB_ROOT_PASSWORD=omeka \
     -e MARIADB_DATABASE=omeka \
     -e MARIADB_USER=omeka \
@@ -103,7 +109,7 @@ shell_dev:
 	@docker exec -u root -it $(PROJECT_NAME)-dev bash -l
 
 shell_db:
-	@docker exec -u root -it omeka-db bash -l
+	@docker exec -u root -it $(PROJECT_NAME)-db bash -l
 
 stop_dev:
 	@docker stop $(PROJECT_NAME)-dev
@@ -116,7 +122,7 @@ start_app:
 	@docker start $(PROJECT_NAME)
 
 start_db:
-	@docker start omeka-db
+	@docker start $(PROJECT_NAME)-db
 
 stop: stop_app stop_db
 
@@ -124,7 +130,7 @@ stop_app:
 	@docker stop $(PROJECT_NAME)
 
 stop_db:
-	@docker stop omeka-db
+	@docker stop $(PROJECT_NAME)-db
 
 reload: stop_app run_app
 
@@ -134,8 +140,8 @@ down_app:
 	@docker stop $(PROJECT_NAME)
 
 down_db:
-	@docker stop omeka-db
-	@docker rm omeka-db
+	@docker stop $(PROJECT_NAME)-db
+	@docker rm $(PROJECT_NAME)-db
 
 lint:
 	@if [ $(CI) == false ]; \
