@@ -20,8 +20,6 @@ MAIL_SERVER ?= "smtp.gmail.com"
 MAIL_ADDRESS ?= "omeka@example.com"
 MAIL_PASSWORD ?= replace_me
 
-.PHONEY: init-app
-
 DEFAULT_RUN_ARGS ?= -e "EXECJS_RUNTIME=Disabled" \
     -e "K8=yes" \
     -e "OMEKA_DB_HOST=$(OMEKA_DB_HOST)" \
