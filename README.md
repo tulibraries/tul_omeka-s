@@ -1,47 +1,30 @@
-# tul_omeka-s
+# Temple University Libary Exhibits (tul_omeka-s)
 
-*DRAFT*
+## Deployment
+This application is deployed with a Helm Chart that is located in Temple Libraries private Gitlab repository.  Access to the repository and the QA application require the user to be logged in to the Temple VPN.
 
-# Mounted Volumes for Persistence
+The QA site can be found at https://exhibits-qa.k8s.temple.edu.
 
-- Rancher Workload
-- Edit workload
-- Volumes >> Add Volume
-	- Add a new persistent volume (claim)
-	- Name: Name the volume. e.g. "tul-omeka-prototype-volume"
-		- Note: Use alphanumerics separated by hyphens. Underscores not accepted
-	- Add a description (Optional)
-	- Source: Select "Use a Storage Class to provision a new persistent volume"
-	- Storage Class: "Use the default class"
-	- Request Storage: e.g. 2 GiB
-	- Access Mode: " Single Node Read-Write"
-	- >> Define
-		- Volume name: As defined above
-		- Mount Point: /var/www/html/files
-		- Subpath in Volume: files
-	- >> Add Mount (if needed)
-		- Volume name: As defined above
-		- Mount Point:/var/www/html/modules
-		- Subpath in Volume: modules
-	- >> Add Mount (if needed)
-		- Volume name: As defined above
-		- Mount Point: /var/www/html/themes
-		- Subpath in Volume: themes
-	- >> Save (bottom of form)
-- Workload will update, Status: "updating workload"
-- Rancher Workload Dashboard
-- Scroll to tul-omeka-s workload
-- Click on menu (Three dots on right)
-- Verify mounted volumes `ls`
-	- Note mounted volumes are owned by `root`
-- Change owner and group of mounted volumes
+## Getting Started
+We defined a Makefile with many useful commands for local development. These commands replicate the process used to deploy in the Gitlab pipeline.
 
-```
-$ chown -R www-data:www-data files modules themes
-$ exit
-```
+There are also some directories that you will need to create locally.  Directories that should not be committed to GitHub are included in the .gitignore file.
+- `mkdir -p data/db`
+- `mkdir -p files/apache2`
+- `mkdir -p files/local`
+- `mkdir -p volume/modules`
+- `mkdir -p volume/themes`
+- `mkdir -p volume/files`
 
-# Install Extensions
+To start up a local instance, run the following make commands. You will need to be logged into the Temple VPN in order to access the Harbor images.   
+- `make build-app`
+- `make pull-db`
+- `make run-db`
+- `make run`
+
+Once the application is running, it can be accessed at http://localhost:80. You will need to create a user in order to enter the application.
+
+## Install Extensions
 
 1. In browser, visit the Rancher Workload Dashboard
 2. Scroll to tul-omeka-s workload
@@ -65,7 +48,7 @@ As an administrative user on the Omeka Web Application, modules are activated an
 from the Admin menu on the left side of the administration dashboard.  Themes are selected
 and configured from the Sites menu item on the left side of the administrative dashboard.
 
-## Module List
+### Module List
 
 - https://github.com/omeka-s-modules/Mapping/releases/download/v1.4.1/Mapping-1.4.1.zip"
 - https://github.com/Daniel-KM/Omeka-S-module-OaiPmhRepository/releases/download/3.3.5.4/OaiPmhRepository-3.3.5.4.zip"
@@ -76,7 +59,7 @@ and configured from the Sites menu item on the left side of the administrative d
 - https://github.com/zerocrates/AltText/releases/download/v1.2.1/AltText-1.2.1.zip
 - https://github.com/omeka-s-modules/CSSEditor/releases/download/v1.3.0/CSSEditor-1.3.0.zip
 
-## Themes List
+### Themes List
 
 - https://github.com/omeka-s-themes/default/releases/download/v1.6.1/theme-default-v1.6.1.zip
 - https://github.com/omeka-s-themes/papers/releases/download/v1.3.1/theme-papers-v1.3.1.zip
@@ -85,3 +68,6 @@ and configured from the Sites menu item on the left side of the administrative d
 - https://github.com/omeka-s-themes/foundation-s/releases/download/v1.1.0/theme-foundation-s-v1.1.0.zip
 - https://github.com/omeka-s-themes/thanksroy/releases/download/v1.0.0/theme-thanksroy-v1.0.0.zip
 - https://github.com/omeka-s-themes/thedaily/releases/download/v1.6.1/theme-thedaily-v1.6.1.zip
+
+
+
