@@ -43,7 +43,7 @@ showenv:
 
 build: pull_db build_app
 
-build-app:
+build_app:
 	@docker build \
 		--tag $(HARBOR)/$(IMAGE):$(VERSION) \
 		--tag $(HARBOR)/$(IMAGE):latest \
@@ -68,7 +68,7 @@ build_dev:
 		--progress=$(BUILD_PROGRESS) \
 		--no-cache .
 
-pull-db:
+pull_db:
 	@docker pull bitnami/mariadb:latest
 
 up: run_db init-app run_app
@@ -90,7 +90,7 @@ run_dev:
 		--mount type=bind,source=$(PWD),target=/build \
 		$(IMAGE):dev sleep infinity
 
-run-db:
+run_db:
 	@docker run --name=$(PROJECT_NAME)-db -d -p 127.0.0.1:3306:3306 \
 	  -e MARIADB_ROOT_PASSWORD=omeka \
     -e MARIADB_DATABASE=omeka \
