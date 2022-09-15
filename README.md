@@ -18,8 +18,7 @@ There are also some directories that you will need to create locally.  Directori
 
 To start up a local instance, run the following make commands. You will need to be logged into the Temple VPN in order to access the Harbor images.   
 - `make build`
-- `make run-db`
-- `make run`
+- `make up`
 
 Once the application is running, it can be accessed at http://localhost:80. You will need to create a user in order to enter the application.
 
