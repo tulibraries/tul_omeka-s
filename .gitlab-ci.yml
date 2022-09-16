@@ -29,6 +29,8 @@ lint:
   extends: .lint_docker
   variables:
     DF: ".docker/app/Dockerfile"
+  except:
+    - tags
 
 build:
   stage: build
@@ -39,6 +41,8 @@ build:
   services:
     - name: $HARBOR/gitlab-ci/docker:20-dind
       command: ["--tls=false"]
+  except:
+    - tags
 
 scan:
   stage: scan
@@ -46,14 +50,18 @@ scan:
   allow_failure: true
   variables:
     THRESHOLD: 10
+  except:
+    - tags
 
 tag:
   stage: tag
   extends: .tag_image
+  except:
+    - tags
 
 qa_deploy:
   variables:
-    IMAGE: $HARBOR/tulibraries/tul_omeka-s
+    IMAGE: "${$HARBOR}/tulibraries/tul_omeka-s"
     RANCHER: rancher-np
     CLUSTER: dev-library
   stage: deploy
@@ -83,7 +91,7 @@ tag_release:
 
 prod_deploy:
   variables:
-    IMAGE: $HARBOR/tulibraries/tul_omeka-s
+    IMAGE: "${$HARBOR}/tulibraries/tul_omeka-s"
     RANCHER: rancher
     CLUSTER: prod-library0
   stage: deploy
