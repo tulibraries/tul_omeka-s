@@ -61,7 +61,7 @@ tag:
 
 qa_deploy:
   variables:
-    IMAGE: "${$HARBOR}/tulibraries/tul_omeka-s"
+    IMAGE: "${HARBOR}/tulibraries/tul_omeka-s"
     RANCHER: rancher-np
     CLUSTER: dev-library
   stage: deploy
