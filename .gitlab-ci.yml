@@ -91,7 +91,7 @@ tag_release:
 
 prod_deploy:
   variables:
-    IMAGE: "${$HARBOR}/tulibraries/tul_omeka-s"
+    IMAGE: "${HARBOR}/tulibraries/tul_omeka-s"
     RANCHER: rancher
     CLUSTER: prod-library0
   stage: deploy
