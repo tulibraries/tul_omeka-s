@@ -61,7 +61,7 @@ tag:
 
 qa_deploy:
   variables:
-    IMAGE: "harbor.k8s.temple.edu/tulibraries/tul_omeka-s"
+    HARBOR_IMAGE: $HARBOR/tulibraries/tul_omeka-s
     RANCHER: rancher-np
     CLUSTER: dev-library
   stage: deploy
@@ -71,7 +71,7 @@ qa_deploy:
   script:
     - *export_variables
     - helm pull oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.*" --untar
-    - helm upgrade exhibits oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.*" --history-max=5 --namespace=exhibits-qa --values exhibits/values.yaml --set image.repository=$IMAGE:$VERSION
+    - helm upgrade exhibits oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.*" --history-max=5 --namespace=exhibits-qa --values exhibits/values.yaml --set image.repository=$HARBOR_IMAGE:$VERSION
 
 tag_prod:
   stage: tag
@@ -91,7 +91,7 @@ tag_release:
 
 prod_deploy:
   variables:
-    IMAGE: "harbor.k8s.temple.edu/tulibraries/tul_omeka-s"
+    HARBOR_IMAGE: $HARBOR/tulibraries/tul_omeka-s
     RANCHER: rancher
     CLUSTER: prod-library0
   stage: deploy
@@ -100,4 +100,4 @@ prod_deploy:
     - tags
   script:
     - helm pull oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.1" --untar
-    - helm upgrade exhibits oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.1" --history-max=5 --namespace=exhibits-prod --values exhibits/values-prod.yaml --set image.repository=$IMAGE:$CI_COMMIT_TAG
+    - helm upgrade exhibits oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.1" --history-max=5 --namespace=exhibits-prod --values exhibits/values-prod.yaml --set image.repository=$HARBOR_IMAGE:$CI_COMMIT_TAG
