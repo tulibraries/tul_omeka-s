@@ -8,6 +8,8 @@ include:
 
 variables:
   IMAGE: "tulibraries/tul_omeka-s"
+  HARBOR: "harbor.k8s.temple.edu"
+  HELM_EXPERIMENTAL_OCI: "1"
 
 .export_variables: &export_variables
   - source .env
@@ -31,11 +33,11 @@ lint:
 build:
   stage: build
   extends: .build_image
-  image: harbor.k8s.temple.edu/gitlab-ci/docker:20
+  image: $HARBOR/gitlab-ci/docker:20
   variables:
     DF: ".docker/app/Dockerfile --no-cache"
   services:
-    - name: harbor.k8s.temple.edu/gitlab-ci/docker:20-dind
+    - name: $HARBOR/gitlab-ci/docker:20-dind
       command: ["--tls=false"]
 
 scan:
@@ -51,28 +53,43 @@ tag:
 
 qa_deploy:
   variables:
-    IMAGE: harbor.k8s.temple.edu/tulibraries/tul_omeka-s
+    IMAGE: $HARBOR/tulibraries/tul_omeka-s
+    RANCHER: rancher-np
+    CLUSTER: dev-library
   stage: deploy
   extends: .helm_setup
   only:
     - main
   script:
     - *export_variables
-    - helm repo add tulibraries https://$HARBOR/chartrepo/tulibraries
-    - helm pull tulibraries/tul_omeka-s --untar
-    - helm upgrade tul_omeka-s ./tul_omeka-s --history-max=5 --namespace=tul_omeka-s-qa --set image.repository=$IMAGE:$VERSION
+    - helm pull oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.*" --untar
+    - helm upgrade exhibits oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.*" --history-max=5 --namespace=exhibits-qa --values exhibits/values.yaml --set image.repository=$IMAGE:$VERSION
+
+tag_prod:
+  stage: tag
+  extends: .tag_image
+  variables:
+    TAG: prod
+  only:
+    - tags
+
+tag_release:
+  stage: tag
+  extends: .tag_image
+  variables:
+    TAG: $CI_COMMIT_TAG
+  only:
+    - tags
 
 prod_deploy:
   variables:
-    IMAGE: harbor.k8s.temple.edu/tulibraries/tul_omeka-s
-    CLUSTER: prod-library
+    IMAGE: $HARBOR/tulibraries/tul_omeka-s
     RANCHER: rancher
+    CLUSTER: prod-library0
   stage: deploy
   extends: .helm_setup
   only:
     - tags
   script:
-    - *export_variables
-    - helm repo add tulibraries https://$HARBOR/chartrepo/tulibraries
-    - helm pull tulibraries/tul_omeka-s --version 0.2.0 --untar
-    - helm upgrade tul_omeka-s ./tul_omeka-s --values ./tul_omeka-s/values-prod.yaml --history-max 5 --namespace tul_omeka-s-prod --set image.repository=$IMAGE:$CI_COMMIT_TAG
+    - helm pull oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.1" --untar
+    - helm upgrade exhibits oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.1" --history-max=5 --namespace=exhibits-prod --values exhibits/values-prod.yaml --set image.repository=$IMAGE:$CI_COMMIT_TAG
