@@ -31,6 +31,10 @@ DEFAULT_RUN_ARGS ?= -e "EXECJS_RUNTIME=Disabled" \
 		--mount type=bind,source="$(shell pwd)/volume/files",target=/var/www/html/files \
 		--mount type=bind,source="$(shell pwd)/volume/modules",target=/var/www/html/modules \
 		--mount type=bind,source="$(shell pwd)/volume/themes",target=/var/www/html/themes \
+		--mount type=bind,source="$(shell pwd)/volume/log",target=/var/log/apache2 \
+    --read-only \
+		--mount type=bind,source="$(shell pwd)/tmpfs/run/apache2",target=/run/apache2 \
+		--mount type=bind,source="$(shell pwd)/tmpfs/tmp",target=/tmp \
     --rm -it
 
 build: pull-db 
