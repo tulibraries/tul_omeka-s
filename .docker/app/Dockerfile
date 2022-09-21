@@ -65,10 +65,10 @@ RUN apk add -U --no-cache \
 &&  cp -pr files/apache2/httpd.conf /etc/apache2 \
 &&  cp -pr files/local/install-plugins.sh /tmp \
 &&  echo "ServerName localhost" >> /etc/apache2/httpd.conf \
-&&  chown -R www-data:www-data /var/www/html/ \
-&&  chown -R www-data:www-data /var/log/apache2/ \
-&&  chown -R www-data:www-data /run/apache2/ \
-&&  chown -R www-data:www-data /tmp/install-plugins.sh \
+&&  chown -R nobody:nobody /var/www/html/ \
+&&  chown -R nobody:nobody /var/log/apache2/ \
+&&  chown -R nobody:nobody /run/apache2/ \
+&&  chown -R nobody:nobody /tmp/install-plugins.sh \
 &&  chmod 600 /var/www/html/config/database.ini \
 &&  chmod 600 /var/www/html/config/local.config.php \
 &&  chmod 600 /var/www/html/.htaccess \
@@ -77,5 +77,5 @@ RUN apk add -U --no-cache \
 
 WORKDIR /var/www/html
 
-USER www-data
+USER nobody
 CMD ["httpd-foreground", "-d", "/etc/apache2", "-f", "/etc/apache2/httpd.conf"]
