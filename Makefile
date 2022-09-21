@@ -28,13 +28,13 @@ DEFAULT_RUN_ARGS ?= -e "EXECJS_RUNTIME=Disabled" \
     -e "MAIL_SERVER=$(MAIL_SERVER)" \
     -e "MAIL_ADDRESS=$(MAIL_ADDRESS)" \
     -e "MAIL_PASSWORD=$(MAIL_PASSWORD)" \
-		--mount type=bind,source="$(shell pwd)/volume/files",target=/var/www/html/files \
-		--mount type=bind,source="$(shell pwd)/volume/modules",target=/var/www/html/modules \
-		--mount type=bind,source="$(shell pwd)/volume/themes",target=/var/www/html/themes \
-		--mount type=bind,source="$(shell pwd)/volume/log",target=/var/log/apache2 \
+    --mount type=bind,source="$(shell pwd)/volume/files",target=/var/www/html/files \
+    --mount type=bind,source="$(shell pwd)/volume/modules",target=/var/www/html/modules \
+    --mount type=bind,source="$(shell pwd)/volume/themes",target=/var/www/html/themes \
+    --mount type=bind,source="$(shell pwd)/volume/log",target=/var/log/apache2 \
     --read-only \
-		--mount type=bind,source="$(shell pwd)/tmpfs/run/apache2",target=/run/apache2 \
-		--mount type=bind,source="$(shell pwd)/tmpfs/tmp",target=/tmp \
+    --mount type=bind,source="$(shell pwd)/tmpfs/run/apache2",target=/run/apache2 \
+    --mount type=bind,source="$(shell pwd)/tmpfs/tmp",target=/tmp \
     --rm -it
 
 build: pull-db 
