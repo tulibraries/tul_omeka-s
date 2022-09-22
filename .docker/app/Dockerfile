@@ -56,6 +56,7 @@ RUN apk add -U --no-cache \
 &&  rm -rf /var/www/html/ \
 &&  mv /var/www/omeka-s/ /var/www/html/ \
 &&  mkdir -p /var/www/html/config/ && mkdir -p /var/www/html/files/ && mkdir -p /var/www/html/modules/ && mkdir -p /var/www/html/themes/  \
+&&  mkdir -p /var/log/ \
 &&  mkdir -p /etc/ImageMagick-6/ \
 &&  cp imagemagick-policy.xml /etc/ImageMagick-6/policy.xml \
 &&  cp .htaccess /var/www/html/.htaccess \
