@@ -35,13 +35,13 @@ Once the application is running, it can be accessed at http://localhost:80. You 
 	1. `cd modules`
 	2. `wget [module url]`
 	3. `unzip [downloaded zip file]`
-	4. `chown -R www-data:www-data [unzipped directory]`
+	4. `chown -R nobody:nobody [unzipped directory]`
 	5. `rm [downloaded zip file]`
 6. To Install Themes
 	1. `cd themes`
 	2. `wget [theme url]`
 	3. `unzip [downloaded zip file]`
-	4. `chown -R www-data:www-data [unzipped directory]`
+	4. `chown -R nobody:nobody [unzipped directory]`
 	5. `rm [downloaded zip file]`
 7. `exit`
 
