@@ -9,7 +9,7 @@ fi
 
 # Install Modules
 wget --no-verbose "https://github.com/omeka-s-modules/Mapping/releases/download/v1.4.1/Mapping-1.4.1.zip" && unzip -o Mapping-1.4.1.zip -d /var/www/html/modules/ && rm Mapping-1.4.1.zip 
-wget --no-verbose "https://github.com/Daniel-KM/Omeka-S-module-OaiPmhRepository/releases/download/3.3.5.4/OaiPmhRepository-3.3.5.4.zip" && unzip -o OaiPmhRepository-3.3.5.4.zip -d /var/www/html/modules/ && unzip -o OaiPmhRepository-3.3.5.4.zip 
+wget --no-verbose "https://github.com/Daniel-KM/Omeka-S-module-OaiPmhRepository/releases/download/3.3.5.4/OaiPmhRepository-3.3.5.4.zip" && unzip -o OaiPmhRepository-3.3.5.4.zip -d /var/www/html/modules/ && rm OaiPmhRepository-3.3.5.4.zip 
 wget --no-verbose "https://github.com/Daniel-KM/Omeka-S-module-ImageServer/releases/download/3.6.7.3/ImageServer-3.6.7.3.zip" && unzip -o ImageServer-3.6.7.3.zip -d /var/www/html/modules/ && rm ImageServer-3.6.7.3.zip 
 wget --no-verbose "https://github.com/Daniel-KM/Omeka-S-module-IiifServer/releases/download/3.6.5.3/IiifServer-3.6.5.3.zip" && unzip -o IiifServer-3.6.5.3.zip -d /var/www/html/modules/ && rm IiifServer-3.6.5.3.zip 
 wget --no-verbose "https://github.com/omeka-s-modules/CSVImport/releases/download/v2.2.1/CSVImport-2.2.1.zip" && unzip -o CSVImport-2.2.1.zip -d /var/www/html/modules/ && rm CSVImport-2.2.1.zip 

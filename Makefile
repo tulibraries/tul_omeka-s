@@ -31,9 +31,9 @@ DEFAULT_RUN_ARGS ?= -e "EXECJS_RUNTIME=Disabled" \
     --mount type=bind,source="$(shell pwd)/volume/files",target=/var/www/html/files \
     --mount type=bind,source="$(shell pwd)/volume/modules",target=/var/www/html/modules \
     --mount type=bind,source="$(shell pwd)/volume/themes",target=/var/www/html/themes \
-    --mount type=bind,source="$(shell pwd)/volume/log",target=/var/log/apache2 \
     --read-only \
-    --mount type=bind,source="$(shell pwd)/tmpfs/run/apache2",target=/run/apache2 \
+    --mount type=bind,source="$(shell pwd)/tmpfs/log",target=/var/log/apache2 \
+    --mount type=bind,source="$(shell pwd)/tmpfs/run",target=/run/apache2 \
     --mount type=bind,source="$(shell pwd)/tmpfs/tmp",target=/tmp \
     --rm -it
 
@@ -46,6 +46,12 @@ build: pull-db
 
 pull-db:
 	@docker pull bitnami/mariadb:latest
+
+init-container:
+  @docker run --name=$(PROJECT_NAME) -u nobody -p 127.0.0.1:80:80/tcp \
+    --entrypoint=/bin/sh \
+    $(DEFAULT_RUN_ARGS) \
+    $(HARBOR)/$(IMAGE):$(VERSION) -c '/var/www/html/install-plugins.sh'
 
 up: run-db run
 

@@ -63,16 +63,15 @@ RUN apk add -U --no-cache \
 &&  cp database.ini /var/www/html/config/ \
 &&  cp local.config.php /var/www/html/config/ \
 &&  cp -pr files/apache2/httpd.conf /etc/apache2 \
-&&  cp -pr files/local/install-plugins.sh /tmp \
+&&  cp -pr files/local/install-plugins.sh /var/www/html \
 &&  echo "ServerName localhost" >> /etc/apache2/httpd.conf \
 &&  chown -R nobody:nobody /var/www/html/ \
 &&  chown -R nobody:nobody /var/log/apache2/ \
 &&  chown -R nobody:nobody /run/apache2/ \
-&&  chown -R nobody:nobody /tmp/install-plugins.sh \
 &&  chmod 600 /var/www/html/config/database.ini \
 &&  chmod 600 /var/www/html/config/local.config.php \
 &&  chmod 600 /var/www/html/.htaccess \
-&&  chmod 700 /tmp/install-plugins.sh \
+&&  chmod 700 /var/www/html/install-plugins.sh \
 &&  rm -rf /build
 
 WORKDIR /var/www/html

@@ -15,9 +15,9 @@ There are also some directories that you will need to create locally.  Directori
 - `mkdir -p volume/modules`
 - `mkdir -p volume/themes`
 - `mkdir -p volume/files`
-- `mkdir -p volume/log`
+- `mkdir -p tmpfs/log`
 - `mkdir -p tmpfs/tmp`
-- `mkdir -p tmpfs/run/apache2`
+- `mkdir -p tmpfs/run`
 
 To start up a local instance, run the following make commands. You will need to be logged into the Temple VPN in order to access the Harbor images.   
 - `make build`
