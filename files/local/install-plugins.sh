@@ -24,3 +24,8 @@ wget --no-verbose "https://github.com/omeka-s-themes/cozy/releases/download/v1.5
 wget --no-verbose "https://github.com/omeka-s-themes/foundation-s/releases/download/v1.1.0/theme-foundation-s-v1.1.0.zip" && unzip -o theme-foundation-s-v1.1.0.zip -d /var/www/html/themes/ && rm theme-foundation-s-v1.1.0.zip 
 wget --no-verbose "https://github.com/omeka-s-themes/thanksroy/releases/download/v1.0.0/theme-thanksroy-v1.0.0.zip" && unzip -o theme-thanksroy-v1.0.0.zip -d /var/www/html/themes/ && rm theme-thanksroy-v1.0.0.zip 
 wget --no-verbose "https://github.com/omeka-s-themes/thedaily/releases/download/v1.6.1/theme-thedaily-v1.6.1.zip" && unzip -o theme-thedaily-v1.6.1.zip -d /var/www/html/themes/ && rm theme-thedaily-v1.6.1.zip 
+
+# Secure plugins and custom modifications
+chown -R nobody:nobody /var/www/html/modules
+chown -R nobody:nobody /var/www/html/themes
+chown -R nobody:nobody /var/www/html/files

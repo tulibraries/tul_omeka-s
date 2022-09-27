@@ -48,7 +48,7 @@ pull-db:
 	@docker pull bitnami/mariadb:latest
 
 init-container:
-	@docker run --name=$(PROJECT_NAME) -u nobody -p 127.0.0.1:80:80/tcp \
+	@docker run --name=$(PROJECT_NAME) -p 127.0.0.1:80:80/tcp \
 		$(DEFAULT_RUN_ARGS) \
 		$(HARBOR)/$(IMAGE):$(VERSION) -c '/var/www/html/install-plugins.sh'
 
