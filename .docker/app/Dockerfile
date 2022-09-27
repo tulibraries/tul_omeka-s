@@ -75,6 +75,7 @@ RUN apk add -U --no-cache \
 &&  rm -rf /build
 
 WORKDIR /var/www/html
+ENTRYPOINT ["/bin/bash"]
 
 USER nobody
 CMD ["httpd-foreground", "-d", "/etc/apache2", "-f", "/etc/apache2/httpd.conf"]
