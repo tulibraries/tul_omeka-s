@@ -52,6 +52,9 @@ init-container:
 		$(DEFAULT_RUN_ARGS) \
 		$(HARBOR)/$(IMAGE):$(VERSION) -c '/var/www/html/install-plugins.sh'
 
+clean-plugins:
+	rm -rf volume/themes/* volume/modules/*
+
 up: run-db run
 
 run:

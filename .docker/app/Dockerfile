@@ -56,7 +56,10 @@ RUN apk add -U --no-cache \
 &&  rm -rf /var/www/html/ \
 &&  mv /var/www/omeka-s/ /var/www/html/ \
 &&  mkdir -p /var/www/html/config/ && mkdir -p /var/www/html/files/ && mkdir -p /var/www/html/modules/ && mkdir -p /var/www/html/themes/  \
+&&  chown -R nobody:nobody /var/www/html/files /var/www/html/modules /var/www/html/themes \
+&&  chmod -R 700 /var/www/html/files /var/www/html/modules /var/www/html/themes \
 &&  mkdir -p /var/log/ \
+&&  chown -R nobody:nobody /var/log/apache2/ \
 &&  mkdir -p /etc/ImageMagick-6/ \
 &&  cp imagemagick-policy.xml /etc/ImageMagick-6/policy.xml \
 &&  cp .htaccess /var/www/html/.htaccess \
@@ -66,7 +69,6 @@ RUN apk add -U --no-cache \
 &&  cp -pr files/local/install-plugins.sh /var/www/html \
 &&  echo "ServerName localhost" >> /etc/apache2/httpd.conf \
 &&  chown -R nobody:nobody /var/www/html/ \
-&&  chown -R nobody:nobody /var/log/apache2/ \
 &&  chown -R nobody:nobody /run/apache2/ \
 &&  chmod 600 /var/www/html/config/database.ini \
 &&  chmod 600 /var/www/html/config/local.config.php \
