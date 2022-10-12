@@ -12,8 +12,8 @@ RUN apk add -U --no-cache \
       bash=5.1.16-r2 \
       libxslt=1.1.35-r0 \
       tzdata=2022c-r0 \
-      shared-mime-info=2.2-r0 \
-      imagemagick=7.1.0.35-r0 \
+      shared-mime-info=2.2-r1 \
+      imagemagick=7.1.0.50-r0 \
       mariadb-connector-c=3.1.13-r4 \
 &&  apk add -U --no-cache --virtual build-dependencies \
       git=2.36.2-r0 \
@@ -29,26 +29,26 @@ RUN apk add -U --no-cache \
       libpng-dev=1.6.37-r1 \
       libjpeg-turbo-dev=2.1.3-r1 \
       freetype-dev=2.12.1-r0 \
-      imagemagick-libs=7.1.0.35-r0 \
-      imagemagick-dev=7.1.0.35-r0 \
+      imagemagick-libs=7.1.0.50-r0 \
+      imagemagick-dev=7.1.0.50-r0 \
       libxpm-dev=3.5.13-r0 \
       libwebp-dev=1.2.3-r0 \
-      php8=8.0.22-r0 \
-      php8-apache2=8.0.22-r0 \
-      php8-dev=8.0.22-r0 \
-      php8-pear=8.0.22-r0 \
-      php8-session=8.0.22-r0 \
-      php8-ctype=8.0.22-r0 \
-      php8-pdo=8.0.22-r0 \
-      php8-iconv=8.0.22-r0 \
-      php8-gd=8.0.22-r0 \
-      php8-openssl=8.0.22-r0 \
-      php8-mysqlnd=8.0.22-r0 \
-      php8-mysqli=8.0.22-r0 \
-      php8-pdo_mysql=8.0.22-r0 \
-      php8-fileinfo=8.0.22-r0 \
-      php8-mbstring=8.0.22-r0 \
-      php8-phar=8.0.22-r0 \
+      php8=8.0.24-r0 \
+      php8-apache2=8.0.24-r0 \
+      php8-dev=8.0.24-r0 \
+      php8-pear=8.0.24-r0 \
+      php8-session=8.0.24-r0 \
+      php8-ctype=8.0.24-r0 \
+      php8-pdo=8.0.24-r0 \
+      php8-iconv=8.0.24-r0 \
+      php8-gd=8.0.24-r0 \
+      php8-openssl=8.0.24-r0 \
+      php8-mysqlnd=8.0.24-r0 \
+      php8-mysqli=8.0.24-r0 \
+      php8-pdo_mysql=8.0.24-r0 \
+      php8-fileinfo=8.0.24-r0 \
+      php8-mbstring=8.0.24-r0 \
+      php8-phar=8.0.24-r0 \
 &&  pecl install -o -f imagick \
 &&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v3.2.2/omeka-s-3.2.2.zip" -O latest_omeka_s.zip \
 &&  unzip -q latest_omeka_s.zip -d /var/www/ \
