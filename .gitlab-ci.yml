@@ -70,6 +70,9 @@ qa_deploy:
     - main
   before_script:
     - *export_variables
+    - helm version
+    - *kubeconfig_setup
+
   script:
     - helm pull oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.*" --untar
     - helm upgrade exhibits oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.*" --history-max=5 --namespace=exhibits-qa --values exhibits/values.yaml --set image.repository=$HARBOR_IMAGE:$VERSION
