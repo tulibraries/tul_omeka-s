@@ -63,13 +63,14 @@ qa_deploy:
   variables:
     HARBOR_IMAGE: $HARBOR/tulibraries/tul_omeka-s
     RANCHER: rancher-np
-    CLUSTER: dev-library
+    CLUSTER: dev-library0
     MERGED_VERSION: ${DOCKER_IMAGE_VERSION}-${CI_COMMIT_SHORT_SHA}
   stage: deploy
   extends: .helm_setup
   only:
     - main
   script:
+    - source .env
     - *export_variables
     - helm pull oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.*" --untar
     - helm upgrade exhibits oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.*" --history-max=5 --namespace=exhibits-qa --values exhibits/values.yaml --set image.repository=$HARBOR_IMAGE:$MERGED_VERSION
