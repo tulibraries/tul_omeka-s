@@ -68,14 +68,11 @@ qa_deploy:
   extends: .helm_setup
   only:
     - main
-  before_script:
-    - *export_variables
-    - helm version
-    - *kubeconfig_setup
-
   script:
+    - source .env
+    - export TAG_VERSION="${DOCKER_IMAGE_VERSION}-${CI_COMMIT_SHORT_SHA}"
     - helm pull oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.*" --untar
-    - helm upgrade exhibits oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.*" --history-max=5 --namespace=exhibits-qa --values exhibits/values.yaml --set image.repository=$HARBOR_IMAGE:$VERSION
+    - helm upgrade exhibits oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.*" --history-max=5 --namespace=exhibits-qa --values exhibits/values.yaml --set image.repository=$HARBOR_IMAGE:$TAG_VERSION
 
 tag_prod:
   stage: tag
