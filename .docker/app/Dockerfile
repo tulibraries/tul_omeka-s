@@ -16,12 +16,12 @@ RUN apk add -U --no-cache \
       imagemagick=7.1.0.50-r0 \
       mariadb-connector-c=3.1.13-r4 \
 &&  apk add -U --no-cache --virtual build-dependencies \
-      git=2.36.2-r0 \
+      git=2.36.3-r0 \
       build-base=0.5-r3 \
       dpkg=1.21.8-r0 \
       libxslt-dev=1.1.35-r0 \
-      mariadb-dev=10.6.9-r0 \
-      mariadb-client=10.6.9-r0 \
+      mariadb-dev=10.6.10-r0 \
+      mariadb-client=10.6.10-r0 \
       wget=1.21.3-r0 \
       curl=7.83.1-r3 \
       ghostscript=9.56.1-r0 \
