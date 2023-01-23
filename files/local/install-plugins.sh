@@ -16,7 +16,6 @@ wget --no-verbose "https://github.com/omeka-s-modules/CSVImport/releases/downloa
 wget --no-verbose "https://github.com/Daniel-KM/Omeka-S-module-BulkEdit/releases/download/3.3.12.4/BulkEdit-3.3.12.4.zip" && unzip -o BulkEdit-3.3.12.4.zip -d /var/www/html/modules/ && rm BulkEdit-3.3.12.4.zip 
 wget --no-verbose "https://github.com/omeka-s-modules/CSSEditor/releases/download/v1.3.0/CSSEditor-1.3.0.zip" && unzip -o CSSEditor-1.3.0.zip -d /var/www/html/modules/ && rm CSSEditor-1.3.0.zip 
 wget --no-verbose "https://github.com/omeka-s-modules/CSVImport/releases/download/v2.3.2/CSVImport-2.3.2.zip" && unzip -o CSVImport-2.3.2.zip -d /var/www/html/modules/ && rm CSVImport-2.3.2.zip 
-wget --no-verbose "https://github.com/omeka-s-modules/Omeka2Importer/releases/download/v1.4.0/Omeka2Importer-1.4.0.zip" && unzip -o Omeka2Importer-1.4.0.zip -d /var/www/html/modules/ && rm Omeka2Importer-1.4.0.zip 
 
 # Install Themes
 wget --no-verbose "https://github.com/omeka-s-themes/default/releases/download/v1.6.1/theme-default-v1.6.1.zip" && unzip -o theme-default-v1.6.1.zip -d /var/www/html/themes/ && rm theme-default-v1.6.1.zip 
