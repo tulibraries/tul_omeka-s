@@ -19,10 +19,10 @@ wget --no-verbose "https://github.com/omeka-s-modules/CSVImport/releases/downloa
 wget --no-verbose "https://github.com/omeka-s-modules/Omeka2Importer/releases/download/v1.4.0/Omeka2Importer-1.4.0.zip" && unzip -o Omeka2Importer-1.4.0.zip -d /var/www/html/modules/ && rm Omeka2Importer-1.4.0.zip
 
 # Install Themes
-wget --no-verbose "https://github.com/omeka-s-themes/default/releases/download/v1.6.1/theme-default-v1.6.1.zip" && unzip -o theme-default-v1.6.1.zip -d /var/www/html/themes/ && rm theme-default-v1.6.1.zip 
-wget --no-verbose "https://github.com/omeka-s-themes/papers/releases/download/v1.3.1/theme-papers-v1.3.1.zip" && unzip -o theme-papers-v1.3.1.zip -d /var/www/html/themes/ && rm theme-papers-v1.3.1.zip 
-wget --no-verbose "https://github.com/omeka-s-themes/centerrow/releases/download/v1.6.0/theme-centerrow-v1.6.0.zip" && unzip -o theme-centerrow-v1.6.0.zip -d /var/www/html/themes/&& rm theme-centerrow-v1.6.0.zip 
-wget --no-verbose "https://github.com/omeka-s-themes/cozy/releases/download/v1.5.1/theme-cozy-v1.5.1.zip" && unzip -o theme-cozy-v1.5.1.zip -d /var/www/html/themes/ && rm theme-cozy-v1.5.1.zip 
-wget --no-verbose "https://github.com/omeka-s-themes/foundation-s/releases/download/v1.1.0/theme-foundation-s-v1.1.0.zip" && unzip -o theme-foundation-s-v1.1.0.zip -d /var/www/html/themes/ && rm theme-foundation-s-v1.1.0.zip 
-wget --no-verbose "https://github.com/omeka-s-themes/thanksroy/releases/download/v1.0.0/theme-thanksroy-v1.0.0.zip" && unzip -o theme-thanksroy-v1.0.0.zip -d /var/www/html/themes/ && rm theme-thanksroy-v1.0.0.zip 
-wget --no-verbose "https://github.com/omeka-s-themes/thedaily/releases/download/v1.6.1/theme-thedaily-v1.6.1.zip" && unzip -o theme-thedaily-v1.6.1.zip -d /var/www/html/themes/ && rm theme-thedaily-v1.6.1.zip 
+wget --no-verbose "https://github.com/omeka-s-themes/default/releases/download/v1.7.1/default-1.7.1.zip" && unzip -o default-1.7.1.zip -d /var/www/html/themes/ && rm default-1.7.1.zip 
+wget --no-verbose "https://github.com/omeka-s-themes/papers/releases/download/v1.4.1/papers-1.4.1.zip" && unzip -o papers-1.4.1.zip -d /var/www/html/themes/ && rm papers-1.4.1.zip 
+wget --no-verbose "https://github.com/omeka-s-themes/centerrow/releases/download/v1.8.1/centerrow-1.8.1.zip" && unzip -o centerrow-1.8.1.zip -d /var/www/html/themes/&& rm centerrow-1.8.1.zip 
+wget --no-verbose "https://github.com/omeka-s-themes/cozy/releases/download/v1.6.0/theme-cozy-v1.6.0.zip" && unzip -o theme-cozy-v1.6.0.zip -d /var/www/html/themes/ && rm theme-cozy-v1.6.0.zip 
+wget --no-verbose "https://github.com/omeka-s-themes/foundation/releases/download/v1.3.3/foundation-1.3.3.zip" && unzip -o foundation-1.3.3.zip -d /var/www/html/themes/ && rm foundation-1.3.3.zip 
+wget --no-verbose "https://github.com/omeka-s-themes/thanksroy/releases/download/v1.1.1/thanksroy-1.1.1.zip" && unzip -o thanksroy-1.1.1.zip -d /var/www/html/themes/ && rm thanksroy-1.1.1.zip 
+wget --no-verbose "https://github.com/omeka-s-themes/thedaily/releases/download/v1.7.0/theme-thedaily-v1.7.0.zip" && unzip -o theme-thedaily-v1.7.0.zip -d /var/www/html/themes/ && rm theme-thedaily-v1.7.0.zip 
