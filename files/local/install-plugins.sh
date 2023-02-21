@@ -25,4 +25,4 @@ wget --no-verbose "https://github.com/omeka-s-themes/cozy/releases/download/v1.6
 wget --no-verbose "https://github.com/omeka-s-themes/foundation/releases/download/v1.3.3/foundation-1.3.3.zip" && unzip -o foundation-1.3.3.zip -d /var/www/html/themes/ && rm foundation-1.3.3.zip 
 wget --no-verbose "https://github.com/omeka-s-themes/thanksroy/releases/download/v1.1.1/thanksroy-1.1.1.zip" && unzip -o thanksroy-1.1.1.zip -d /var/www/html/themes/ && rm thanksroy-1.1.1.zip 
 wget --no-verbose "https://github.com/omeka-s-themes/thedaily/releases/download/v1.7.0/theme-thedaily-v1.7.0.zip" && unzip -o theme-thedaily-v1.7.0.zip -d /var/www/html/themes/ && rm theme-thedaily-v1.7.0.zip 
-wget --no-verbose "https://github.com/tulibraries/centerrow-temple/archive/refs/tags/v0.1.zip" && unzip -o v0.1.zip -d /var/www/html/themes/ && rm v0.1.zip 
+wget --no-verbose "https://github.com/tulibraries/centerrow-temple/archive/refs/tags/v0.1.zip" && unzip -o centerrow-temple-main.zip -d /var/www/html/themes/ && rm centerrow-temple-main.zip 
