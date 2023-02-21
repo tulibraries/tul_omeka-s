@@ -2,9 +2,9 @@
 
 cd /tmp
 
-# Remove unused Directories
-if [ -d "/var/www/html/modules/AltText" ]; then
-  rm -rf /var/www/html/modules/AltText
+# Remove unused zip files
+if [ -d "/tmp/*.zip*" ]; then
+  rm -rf /tmp/*.zip*
 fi
 
 # Install Modules
