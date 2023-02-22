@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+install_plugin () {
+  wget --no-verbose "$1" -O plugin.zip
+  unzip -q -o plugin.zip -d $2
+  rm plugin.zip
+}
+
 cd /tmp
 
 # Remove unused zip files
@@ -20,9 +26,7 @@ module_git_urls+=( \
 )
 
 for module_url in ${module_git_urls[@]}; do
-  wget --no-verbose "$module_url" -O module.zip
-  unzip -q -o module.zip -d /var/www/html/modules/
-  rm module.zip
+  install_plugin $module_url "/var/www/html/modules/"
 done
 
 # Install themes
@@ -38,7 +42,5 @@ theme_git_urls+=( \
 )
 
 for theme_url in ${theme_git_urls[@]}; do
-  wget --no-verbose "$theme_url" -O theme.zip
-  unzip -q -o theme.zip -d /var/www/html/themes/
-  rm theme.zip
+  install_plugin $theme_url "/var/www/html/themes/"
 done
