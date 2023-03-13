@@ -38,7 +38,7 @@ theme_git_urls+=( \
   "https://github.com/omeka-s-themes/foundation/releases/download/v1.3.3/foundation-1.3.3.zip" \
   "https://github.com/omeka-s-themes/thanksroy/releases/download/v1.1.1/thanksroy-1.1.1.zip" \
   "https://github.com/omeka-s-themes/thedaily/releases/download/v1.7.0/theme-thedaily-v1.7.0.zip" \
-  "https://github.com/tulibraries/centerrow-temple/archive/refs/tags/v0.2.zip" \
+  "https://github.com/tulibraries/crnc-theme/archive/refs/tags/v0.1.zip" \
 )
 
 for theme_url in ${theme_git_urls[@]}; do
