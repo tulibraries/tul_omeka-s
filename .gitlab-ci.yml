@@ -32,16 +32,6 @@ lint:
   except:
     - tags
 
-build:
-  stage: build
-  extends: .build_image
-  variables:
-    DF: ".docker/app/Dockerfile --no-cache"
-  services:
-      command: ["--tls=false"]
-  except:
-    - tags
-
 scan:
   stage: scan
   extends: .scanimage_high
