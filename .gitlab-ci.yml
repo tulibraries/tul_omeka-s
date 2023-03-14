@@ -35,12 +35,8 @@ lint:
 build:
   stage: build
   extends: .build_image
-  image: $HARBOR/gitlab-ci/docker:20
   variables:
     DF: ".docker/app/Dockerfile --no-cache"
-  services:
-    - name: $HARBOR/gitlab-ci/docker:20-dind
-      command: ["--tls=false"]
   except:
     - tags
 
