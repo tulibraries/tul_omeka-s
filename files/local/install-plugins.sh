@@ -25,6 +25,7 @@ module_git_urls+=( \
   "https://github.com/omeka-s-modules/Omeka2Importer/releases/download/v1.5.1/Omeka2Importer-1.5.1.zip" \
 )
 
+rm -rf /var/www/html/modules/
 for module_url in ${module_git_urls[@]}; do
   install_plugin $module_url "/var/www/html/modules/"
 done
@@ -38,9 +39,10 @@ theme_git_urls+=( \
   "https://github.com/omeka-s-themes/foundation/releases/download/v1.3.3/foundation-1.3.3.zip" \
   "https://github.com/omeka-s-themes/thanksroy/releases/download/v1.1.1/thanksroy-1.1.1.zip" \
   "https://github.com/omeka-s-themes/thedaily/releases/download/v1.7.0/theme-thedaily-v1.7.0.zip" \
-  "https://github.com/tulibraries/crnc-theme/archive/refs/tags/v0.3.zip" \
+  "https://github.com/tulibraries/crnc-theme/releases/download/v0.3/crnc-theme-v0.3.zip" \
 )
 
+rm -rf /var/www/html/themes/
 for theme_url in ${theme_git_urls[@]}; do
   install_plugin $theme_url "/var/www/html/themes/"
 done
