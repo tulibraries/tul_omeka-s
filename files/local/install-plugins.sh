@@ -40,6 +40,7 @@ theme_git_urls+=( \
   "https://github.com/omeka-s-themes/thanksroy/releases/download/v1.1.1/thanksroy-1.1.1.zip" \
   "https://github.com/omeka-s-themes/thedaily/releases/download/v1.7.0/theme-thedaily-v1.7.0.zip" \
   "https://github.com/tulibraries/crnc-theme/releases/download/v0.4/crnc-theme-v0.4.zip" \
+  "https://github.com/tulibraries/still-theme/releases/download/v0.1/still-theme-v0.1.zip" \
 )
 
 rm -rf /var/www/html/themes/
