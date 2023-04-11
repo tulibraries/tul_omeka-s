@@ -11,9 +11,9 @@ ENV PHPIZE_DEPS="autoconf dpkg-dev file g++ gcc libc-dev make pkgconfig re2c"
 RUN apk add -U --no-cache \
       bash=5.2.15-r0 \
       libxslt=1.1.37-r1 \
-      tzdata=2022f-r1 \
+      tzdata=2023c-r0 \
       shared-mime-info=2.2-r2 \
-      imagemagick=7.1.0.52-r0 \
+      imagemagick=7.1.0.62-r0 \
       mariadb-connector-c=3.3.3-r0 \
 &&  apk add -U --no-cache --virtual build-dependencies \
       git=2.38.4-r1 \
@@ -23,33 +23,33 @@ RUN apk add -U --no-cache \
       mariadb-dev=10.6.12-r0 \
       mariadb-client=10.6.12-r0 \
       wget=1.21.3-r2 \
-      curl=7.88.1-r0 \
+      curl=7.88.1-r1 \
       ghostscript=10.0.0-r0 \
       poppler-utils=22.11.0-r0 \
       libpng-dev=1.6.38-r0 \
       libjpeg-turbo-dev=2.1.4-r0 \
       freetype-dev=2.12.1-r0 \
-      imagemagick-libs=7.1.0.52-r0 \
-      imagemagick-dev=7.1.0.52-r0 \
+      imagemagick-libs=7.1.0.62-r0 \
+      imagemagick-dev=7.1.0.62-r0 \
       libxpm-dev=3.5.15-r0 \
       libwebp-dev=1.2.4-r1 \
-      php81=8.1.16-r0 \
-      php81-apache2=8.1.16-r0 \
-      php81-dev=8.1.16-r0 \
-      php81-pear=8.1.16-r0 \
-      php81-session=8.1.16-r0 \
-      php81-ctype=8.1.16-r0 \
-      php81-pdo=8.1.16-r0 \
-      php81-iconv=8.1.16-r0 \
-      php81-gd=8.1.16-r0 \
-      php81-openssl=8.1.16-r0 \
-      php81-mysqlnd=8.1.16-r0 \
-      php81-mysqli=8.1.16-r0 \
-      php81-pdo_mysql=8.1.16-r0 \
-      php81-fileinfo=8.1.16-r0 \
-      php81-mbstring=8.1.16-r0 \
-      php81-phar=8.1.16-r0 \
-      php81-tokenizer=8.1.16-r0 \
+      php81=8.1.17-r0 \
+      php81-apache2=8.1.17-r0 \
+      php81-dev=8.1.17-r0 \
+      php81-pear=8.1.17-r0 \
+      php81-session=8.1.17-r0 \
+      php81-ctype=8.1.17-r0 \
+      php81-pdo=8.1.17-r0 \
+      php81-iconv=8.1.17-r0 \
+      php81-gd=8.1.17-r0 \
+      php81-openssl=8.1.17-r0 \
+      php81-mysqlnd=8.1.17-r0 \
+      php81-mysqli=8.1.17-r0 \
+      php81-pdo_mysql=8.1.17-r0 \
+      php81-fileinfo=8.1.17-r0 \
+      php81-mbstring=8.1.17-r0 \
+      php81-phar=8.1.17-r0 \
+      php81-tokenizer=8.1.17-r0 \
 &&  pecl install -o -f imagick \
 &&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v4.0.0/omeka-s-4.0.0.zip" -O latest_omeka_s.zip \
 &&  unzip -q latest_omeka_s.zip -d /var/www/ \
