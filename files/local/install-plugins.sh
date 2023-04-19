@@ -1,9 +1,26 @@
 #!/usr/bin/env bash
 
 install_plugin () {
-  wget --no-verbose "$1" -O plugin.zip
+  is_temple_theme=$(is_temple_theme $1)
+  if [[ $is_temple_theme -eq 1 ]]; then
+    plugin=$(remove_version $1)
+  fi
+  wget --no-verbose $1 -O plugin.zip
   unzip -q -o plugin.zip -d $2
   rm plugin.zip
+}
+
+is_temple_theme () {
+  if [[ $1 =~ "crnc" ]] || [[ $1 =~ "still" ]]; then
+    echo 1
+  else
+    echo 0
+  fi
+}
+
+remove_version () {
+  url="$1"
+  echo $url | sed 's/-theme-.*\.zip$/-theme\.zip/'
 }
 
 cd /tmp
@@ -26,7 +43,7 @@ module_git_urls+=( \
   "https://github.com/omeka-s-modules/CustomVocab/releases/download/v1.7.1/CustomVocab-1.7.1.zip" \
 )
 
-rm -rf /var/www/html/modules/
+# rm -rf /var/www/html/modules/
 for module_url in ${module_git_urls[@]}; do
   install_plugin $module_url "/var/www/html/modules/"
 done
@@ -40,11 +57,11 @@ theme_git_urls+=( \
   "https://github.com/omeka-s-themes/foundation/releases/download/v1.3.3/foundation-1.3.3.zip" \
   "https://github.com/omeka-s-themes/thanksroy/releases/download/v1.1.1/thanksroy-1.1.1.zip" \
   "https://github.com/omeka-s-themes/thedaily/releases/download/v1.7.0/theme-thedaily-v1.7.0.zip" \
-  "https://github.com/tulibraries/crnc-theme/releases/download/v0.5/crnc-theme-v0.5.zip" \
-  "https://github.com/tulibraries/still-theme/releases/download/v0.1/still-theme-v0.1.zip" \
+  "https://github.com/tulibraries/crnc-theme/releases/download/v0.6/crnc-theme-v0.6.zip" \
+  "https://github.com/tulibraries/still-theme/releases/download/v0.2/still-theme-v0.2.zip" \
 )
 
-rm -rf /var/www/html/themes/
+# rm -rf /var/www/html/themes/
 for theme_url in ${theme_git_urls[@]}; do
-  install_plugin $theme_url "/var/www/html/themes/"
+    install_plugin $theme_url "/var/www/html/themes/"
 done
