@@ -3,12 +3,13 @@
 install_plugin () {
   plugin=$1
   is_temple_theme=$(is_temple_theme $plugin)
-  if [[ $is_temple_theme -eq 1 ]]; then
-    plugin=$(remove_version $plugin)
-  fi
-  wget --no-verbose $plugin -O plugin.zip
+  wget --no-verbose $1 -O plugin.zip
   unzip -q -o plugin.zip -d $2
   rm plugin.zip
+  if [[ $is_temple_theme -eq 1 ]]; then
+    plugin=$(remove_version $plugin)
+    mv 
+  fi
 }
 
 is_temple_theme () {
@@ -21,7 +22,7 @@ is_temple_theme () {
 
 remove_version () {
   url="$1"
-  echo $url | sed 's/-theme-.*\.zip$/-theme\.zip/'
+  echo $url | sed 's:.*/::' | sed 's/-theme-.*\.zip$/-theme\.zip/'
 }
 
 cd /tmp
