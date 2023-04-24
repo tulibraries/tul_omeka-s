@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 
 install_plugin () {
-  plugin=$1
-  is_temple_theme=$(is_temple_theme $plugin)
+  is_temple_theme=$(is_temple_theme $1)
+  theme_version=$(theme_version $1)
+  theme_name=$(theme_name $1)
+
   wget --no-verbose $1 -O plugin.zip
   unzip -q -o plugin.zip -d $2
   rm plugin.zip
   if [[ $is_temple_theme -eq 1 ]]; then
-    plugin=$(remove_version $plugin)
-    mv 
+    mv $theme_version $theme_name
   fi
 }
 
@@ -20,9 +21,14 @@ is_temple_theme () {
   fi
 }
 
-remove_version () {
+theme_version () {
   url="$1"
-  echo $url | sed 's:.*/::' | sed 's/-theme-.*\.zip$/-theme\.zip/'
+  echo $url | sed 's:.*/::' | sed 's/\.[^.]*$//'
+}
+
+theme_name () {
+  url="$1"
+  echo $url | sed 's:.*/::' | sed 's/-theme-.*$/-theme/'
 }
 
 cd /tmp
