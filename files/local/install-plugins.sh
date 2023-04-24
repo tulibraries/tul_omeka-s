@@ -43,7 +43,7 @@ module_git_urls+=( \
   "https://github.com/omeka-s-modules/CustomVocab/releases/download/v1.7.1/CustomVocab-1.7.1.zip" \
 )
 
-# rm -rf /var/www/html/modules/
+rm -rf /var/www/html/modules/
 for module_url in ${module_git_urls[@]}; do
   install_plugin $module_url "/var/www/html/modules/"
 done
@@ -61,7 +61,7 @@ theme_git_urls+=( \
   "https://github.com/tulibraries/still-theme/releases/download/v0.2/still-theme-v0.2.zip" \
 )
 
-# rm -rf /var/www/html/themes/
+rm -rf /var/www/html/themes/
 for theme_url in ${theme_git_urls[@]}; do
     install_plugin $theme_url "/var/www/html/themes/"
 done
