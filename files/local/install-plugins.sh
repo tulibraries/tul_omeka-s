@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 install_plugin () {
-  is_temple_theme=$(is_temple_theme $1)
+  plugin=$1
+  is_temple_theme=$(is_temple_theme $plugin)
   if [[ $is_temple_theme -eq 1 ]]; then
-    plugin=$(remove_version $1)
+    plugin=$(remove_version $plugin)
   fi
-  wget --no-verbose $1 -O plugin.zip
+  wget --no-verbose $plugin -O plugin.zip
   unzip -q -o plugin.zip -d $2
   rm plugin.zip
 }
