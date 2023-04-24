@@ -24,7 +24,7 @@ RUN apk add -U --no-cache \
       mariadb-client=10.6.12-r0 \
       wget=1.21.3-r2 \
       curl=8.0.1-r0 \
-      ghostscript=10.0.0-r1 \
+      ghostscript=10.01.1-r0 \
       poppler-utils=22.11.0-r0 \
       libpng-dev=1.6.38-r0 \
       libjpeg-turbo-dev=2.1.4-r0 \
