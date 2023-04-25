@@ -8,6 +8,7 @@ install_plugin () {
   wget --no-verbose $1 -O plugin.zip
   unzip -q -o plugin.zip -d $2
   rm plugin.zip
+  sleep 10
   if [[ $is_temple_theme -eq 1 ]]; then
     mv $theme_version $theme_name
   fi
@@ -51,7 +52,7 @@ module_git_urls+=( \
   "https://github.com/omeka-s-modules/CustomVocab/releases/download/v1.7.1/CustomVocab-1.7.1.zip" \
 )
 
-rm -rf /var/www/html/modules/
+rm -rf /var/www/html/modules/{*,.*}
 for module_url in ${module_git_urls[@]}; do
   install_plugin $module_url "/var/www/html/modules/"
 done
@@ -69,7 +70,7 @@ theme_git_urls+=( \
   "https://github.com/tulibraries/still-theme/releases/download/v0.2/still-theme-0.2.zip" \
 )
 
-rm -rf /var/www/html/themes/
+rm -rf /var/www/html/themes/{*,.*}
 for theme_url in ${theme_git_urls[@]}; do
     install_plugin $theme_url "/var/www/html/themes/"
 done
