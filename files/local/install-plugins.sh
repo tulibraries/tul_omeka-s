@@ -43,8 +43,6 @@ done
 
 # Install themes
 theme_git_urls+=(
-  "https://github.com/tulibraries/crnc-theme/releases/download/v0.6/crnc-theme-0.6.zip" \
-  "https://github.com/tulibraries/still-theme/releases/download/v0.2/still-theme-0.2.zip" \
   "https://github.com/omeka-s-themes/default/releases/download/v1.7.1/default-1.7.1.zip" \
   "https://github.com/omeka-s-themes/papers/releases/download/v1.4.1/papers-1.4.1.zip" \
   "https://github.com/omeka-s-themes/centerrow/releases/download/v1.8.1/centerrow-1.8.1.zip" \
@@ -54,16 +52,19 @@ theme_git_urls+=(
   "https://github.com/omeka-s-themes/thedaily/releases/download/v1.7.0/theme-thedaily-v1.7.0.zip" \
 )
 
-rm -rf /var/www/html/themes/{*,.*}
-for theme_url in ${theme_git_urls[@]}; do
-    install_plugin $theme_url "/var/www/html/themes/"
-done
-
-# Remove versions from temple themes
 temple_themes+=(
   "https://github.com/tulibraries/crnc-theme/releases/download/v0.6/crnc-theme-0.6.zip" \
   "https://github.com/tulibraries/still-theme/releases/download/0.3/still-theme-0.3.zip" \
 )
+
+theme_urls+=("${theme_git_urls[@]}" "${temple_themes[@]}")
+
+rm -rf /var/www/html/themes/{*,.*}
+for theme_url in ${theme_urls[@]}; do
+    install_plugin $theme_url "/var/www/html/themes/"
+done
+
+# Remove versions from temple themes
 
 for theme in ${temple_themes[@]}; do
   theme_version=$(theme_version $theme)
