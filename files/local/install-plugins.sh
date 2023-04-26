@@ -34,6 +34,7 @@ module_git_urls+=( \
   "https://github.com/omeka-s-modules/CSSEditor/releases/download/v1.3.1/CSSEditor-1.3.1.zip" \
   "https://github.com/omeka-s-modules/Omeka2Importer/releases/download/v1.5.1/Omeka2Importer-1.5.1.zip" \
   "https://github.com/omeka-s-modules/CustomVocab/releases/download/v1.7.1/CustomVocab-1.7.1.zip" \
+  "https://github.com/omeka-s-modules/FileSideload/releases/download/v1.7.1/FileSideload-1.7.1.zip" \
 )
 
 rm -rf /var/www/html/modules/{*,.*}
