@@ -62,7 +62,7 @@ done
 # Remove versions from temple themes
 temple_themes+=(
   "https://github.com/tulibraries/crnc-theme/releases/download/v0.6/crnc-theme-0.6.zip" \
-  "https://github.com/tulibraries/still-theme/releases/download/v0.2/still-theme-0.2.zip" \
+  "https://github.com/tulibraries/still-theme/releases/download/0.3/still-theme-0.3.zip" \
 )
 
 for theme in ${temple_themes[@]}; do
