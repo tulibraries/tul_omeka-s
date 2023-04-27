@@ -42,6 +42,11 @@ for module_url in ${module_git_urls[@]}; do
   install_plugin $module_url "/var/www/html/modules/"
 done
 
+# Prepare File Sideload directory
+if [ ! -d "/var/www/html/files/sideload/" ]; then
+  mkdir -p "/var/www/html/files/sideload"
+fi
+
 # Install themes
 theme_git_urls+=(
   "https://github.com/omeka-s-themes/default/releases/download/v1.7.1/default-1.7.1.zip" \
