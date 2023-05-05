@@ -8,7 +8,7 @@ return [
         'sslcapath' => null,
         'sslcafile' => null,
     ],
-    'session_config' => [
+    'session' => [
         'cookie_secure' => true,
     ],
     'cli' => [
