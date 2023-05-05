@@ -8,9 +8,6 @@ return [
         'sslcapath' => null,
         'sslcafile' => null,
     ],
-    'session' => [
-        'cookie_secure' => true,
-    ],
     'cli' => [
         'phpcli_path' => null,
     ],
@@ -32,6 +29,13 @@ return [
             'Omeka\File\Store' => 'Omeka\File\Store\Local',
             'Omeka\File\Thumbnailer' => 'Omeka\File\Thumbnailer\ImageMagick',
         ],
+        'factories' => [
+            'Laminas\Session\Config\ConfigInterface' => 'Laminas\Session\Service\SessionConfigFactory',
+        ],
+    ],
+    'session_config' => [
+        'cookie_secure' => true,
+        'cookie_httponly' => true,
     ],
     'mail' => [
         'transport' => [
