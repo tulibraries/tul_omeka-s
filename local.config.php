@@ -8,6 +8,9 @@ return [
         'sslcapath' => null,
         'sslcafile' => null,
     ],
+    'session_config' => [
+        'cookie_secure' => true,
+    ],
     'cli' => [
         'phpcli_path' => null,
     ],
