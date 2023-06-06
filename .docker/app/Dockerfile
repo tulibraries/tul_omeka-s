@@ -56,6 +56,7 @@ RUN apk add -U --no-cache \
 &&  rm latest_omeka_s.zip \
 &&  rm -rf /var/www/html/ \
 &&  mv /var/www/omeka-s/ /var/www/html/ \
+&&  cp -f -p files/omeka/application/view/omeka/login/forgot-password.phtml /var/www/html/application/view/omeka/login/ \
 &&  mkdir -p /var/www/html/config/ && mkdir -p /var/www/html/files/ && mkdir -p /var/www/html/modules/ && mkdir -p /var/www/html/themes/  \
 &&  mkdir -p /var/log/ \
 &&  chown -R nobody:nobody /var/log/apache2/ \
