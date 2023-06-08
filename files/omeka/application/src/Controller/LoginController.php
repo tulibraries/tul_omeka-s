@@ -140,6 +140,7 @@ class LoginController extends AbstractActionController
 
     public function forgotPasswordAction()
     {
+        $id = $this->params()->fromQuery('id');
         if ($this->auth->hasIdentity()) {
             return $this->redirect()->toRoute('admin');
         }
@@ -150,6 +151,18 @@ class LoginController extends AbstractActionController
             $data = $this->getRequest()->getPost();
             $form->setData($data);
             if ($form->isValid()) {
+                $csrfForm->setData($data);
+                $formName = "forgotpasswordform";
+                if ($csrfForm->isValid()) {
+                    unset($this->getRequest()->getPost()["{$formName}_csrf"]);
+                    if (false !== $moduleObject->handleConfigForm($this)) {
+                        $this->messenger()->addSuccess('The module was successfully configured'); // @translate
+                        return $this->redirect()->toRoute(null, ['action' => 'browse'], true);
+                    }
+                    $this->messenger()->addError('There was a problem during configuration'); // @translate
+                } else {
+                    $this->messenger()->addFormErrors($csrfForm);
+                }
                 $user = $this->entityManager->getRepository('Omeka\Entity\User')
                     ->findOneBy([
                         'email' => $data['email'],

@@ -20,8 +20,8 @@ RUN apk add -U --no-cache \
       build-base=0.5-r3 \
       dpkg=1.21.21-r1 \
       libxslt-dev=1.1.38-r0 \
-      mariadb-dev=10.11.3-r0 \
-      mariadb-client=10.11.3-r0 \
+      mariadb-dev=10.11.4-r0 \
+      mariadb-client=10.11.4-r0 \
       wget=1.21.4-r0 \
       curl=8.1.2-r0 \
       ghostscript=10.01.1-r1 \
@@ -57,6 +57,7 @@ RUN apk add -U --no-cache \
 &&  rm -rf /var/www/html/ \
 &&  mv /var/www/omeka-s/ /var/www/html/ \
 &&  cp -f -p files/omeka/application/view/omeka/login/forgot-password.phtml /var/www/html/application/view/omeka/login/ \
+&&  cp -f -p files/omeka/application/src/Controller/LoginController.php /var/www/html/application/src/Controller/ \
 &&  mkdir -p /var/www/html/config/ && mkdir -p /var/www/html/files/ && mkdir -p /var/www/html/modules/ && mkdir -p /var/www/html/themes/  \
 &&  mkdir -p /var/log/ \
 &&  chown -R nobody:nobody /var/log/apache2/ \
