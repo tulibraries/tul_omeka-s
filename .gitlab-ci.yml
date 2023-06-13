@@ -96,5 +96,5 @@ prod_deploy:
   only:
     - tags
   script:
-    - helm pull oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.24" --untar
-    - helm upgrade exhibits oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.24" --history-max=5 --namespace=exhibits-prod --values exhibits/values-prod.yaml --set image.repository=$HARBOR_IMAGE:$CI_COMMIT_TAG
+    - helm pull oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.25" --untar
+    - helm upgrade exhibits oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.1.25" --history-max=5 --namespace=exhibits-prod --values exhibits/values-prod.yaml --set image.repository=$HARBOR_IMAGE:$CI_COMMIT_TAG
