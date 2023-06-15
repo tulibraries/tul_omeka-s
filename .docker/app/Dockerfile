@@ -27,7 +27,7 @@ RUN apk add -U --no-cache \
       ghostscript=10.01.1-r1 \
       poppler-utils=23.05.0-r0 \
       libpng-dev=1.6.39-r3 \
-      libjpeg-turbo-dev=2.1.5.1-r2 \
+      libjpeg-turbo-dev=2.1.5.1-r3 \
       freetype-dev=2.13.0-r5 \
       imagemagick-libs=7.1.1.10-r0 \
       imagemagick-dev=7.1.1.10-r0 \
