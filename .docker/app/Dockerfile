@@ -13,7 +13,7 @@ RUN apk add -U --no-cache \
       libxslt=1.1.38-r0 \
       tzdata=2023c-r1 \
       shared-mime-info=2.2-r5 \
-      imagemagick=7.1.1.10-r0 \
+      imagemagick=7.1.1.13-r0 \
       mariadb-connector-c=3.3.5-r0 \
 &&  apk add -U --no-cache --virtual build-dependencies \
       git=2.40.1-r0 \
@@ -29,27 +29,27 @@ RUN apk add -U --no-cache \
       libpng-dev=1.6.39-r3 \
       libjpeg-turbo-dev=2.1.5.1-r3 \
       freetype-dev=2.13.0-r5 \
-      imagemagick-libs=7.1.1.10-r0 \
-      imagemagick-dev=7.1.1.10-r0 \
+      imagemagick-libs=7.1.1.13-r0 \
+      imagemagick-dev=7.1.1.13-r0 \
       libxpm-dev=3.5.16-r1 \
-      libwebp-dev=1.3.0-r2 \
-      php81=8.1.20-r0 \
-      php81-apache2=8.1.20-r0 \
-      php81-dev=8.1.20-r0 \
-      php81-pear=8.1.20-r0 \
-      php81-session=8.1.20-r0 \
-      php81-ctype=8.1.20-r0 \
-      php81-pdo=8.1.20-r0 \
-      php81-iconv=8.1.20-r0 \
-      php81-gd=8.1.20-r0 \
-      php81-openssl=8.1.20-r0 \
-      php81-mysqlnd=8.1.20-r0 \
-      php81-mysqli=8.1.20-r0 \
-      php81-pdo_mysql=8.1.20-r0 \
-      php81-fileinfo=8.1.20-r0 \
-      php81-mbstring=8.1.20-r0 \
-      php81-phar=8.1.20-r0 \
-      php81-tokenizer=8.1.20-r0 \
+      libwebp-dev=1.3.1-r0 \
+      php81=8.1.21-r0 \
+      php81-apache2=8.1.21-r0 \
+      php81-dev=8.1.21-r0 \
+      php81-pear=8.1.21-r0 \
+      php81-session=8.1.21-r0 \
+      php81-ctype=8.1.21-r0 \
+      php81-pdo=8.1.21-r0 \
+      php81-iconv=8.1.21-r0 \
+      php81-gd=8.1.21-r0 \
+      php81-openssl=8.1.21-r0 \
+      php81-mysqlnd=8.1.21-r0 \
+      php81-mysqli=8.1.21-r0 \
+      php81-pdo_mysql=8.1.21-r0 \
+      php81-fileinfo=8.1.21-r0 \
+      php81-mbstring=8.1.21-r0 \
+      php81-phar=8.1.21-r0 \
+      php81-tokenizer=8.1.21-r0 \
 &&  pecl install -o -f imagick \
 &&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v4.0.0/omeka-s-4.0.0.zip" -O latest_omeka_s.zip \
 &&  unzip -q latest_omeka_s.zip -d /var/www/ \
@@ -57,6 +57,8 @@ RUN apk add -U --no-cache \
 &&  rm -rf /var/www/html/ \
 &&  mv /var/www/omeka-s/ /var/www/html/ \
 &&  cp -f -p files/omeka/application/src/Form/LoginForm.php /var/www/html/application/src/Form/ \
+&&  cp -f -p files/omeka/application/config/application.config.php /var/www/html/application/config/ \
+&&  cp -f -p files/omeka/application/view/omeka/login/forgot-password.phtml /var/www/html/application/view/omeka/login/ \
 &&  mkdir -p /var/www/html/config/ && mkdir -p /var/www/html/files/ && mkdir -p /var/www/html/modules/ && mkdir -p /var/www/html/themes/  \
 &&  mkdir -p /var/log/ \
 &&  chown -R nobody:nobody /var/log/apache2/ \
