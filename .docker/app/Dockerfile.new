@@ -23,7 +23,7 @@ RUN apk add -U --no-cache \
       mariadb-dev=10.11.4-r0 \
       mariadb-client=10.11.4-r0 \
       wget=1.21.4-r0 \
-      curl=8.2.0-r1 \
+      curl=8.1.2-r0 \
       ghostscript=10.01.2-r0 \
       poppler-utils=23.05.0-r0 \
       libpng-dev=1.6.39-r3 \
@@ -50,14 +50,16 @@ RUN apk add -U --no-cache \
       php81-mbstring=8.1.21-r0 \
       php81-phar=8.1.21-r0 \
       php81-tokenizer=8.1.21-r0 \
-&&  pecl install -o -f imagick \
-&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v4.0.0/omeka-s-4.0.0.zip" -O latest_omeka_s.zip \
+&&    pecl install -o -f imagick composer
+RUN composer require laminas/laminas-mvc-plugin-prg 
+RUN wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v4.0.0/omeka-s-4.0.0.zip" -O latest_omeka_s.zip \
 &&  unzip -q latest_omeka_s.zip -d /var/www/ \
 &&  rm latest_omeka_s.zip \
 &&  rm -rf /var/www/html/ \
 &&  mv /var/www/omeka-s/ /var/www/html/ \
 &&  cp -f -p files/omeka/application/src/Form/LoginForm.php /var/www/html/application/src/Form/ \
 &&  cp -f -p files/omeka/application/config/application.config.php /var/www/html/application/config/ \
+&&  cp -f -p files/omeka/application/view/omeka/login/forgot-password.phtml /var/www/html/application/view/omeka/login/ \
 &&  mkdir -p /var/www/html/config/ && mkdir -p /var/www/html/files/ && mkdir -p /var/www/html/modules/ && mkdir -p /var/www/html/themes/  \
 &&  mkdir -p /var/log/ \
 &&  chown -R nobody:nobody /var/log/apache2/ \
