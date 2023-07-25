@@ -58,6 +58,7 @@ RUN apk add -U --no-cache \
 &&  mv /var/www/omeka-s/ /var/www/html/ \
 &&  cp -f -p files/omeka/application/src/Form/LoginForm.php /var/www/html/application/src/Form/ \
 &&  cp -f -p files/omeka/application/config/application.config.php /var/www/html/application/config/ \
+&&  cp -f -p files/omeka/application/view/omeka/index/index.phtml /var/www/html/application/view/omeka/index/ \
 &&  mkdir -p /var/www/html/config/ && mkdir -p /var/www/html/files/ && mkdir -p /var/www/html/modules/ && mkdir -p /var/www/html/themes/  \
 &&  mkdir -p /var/log/ \
 &&  chown -R nobody:nobody /var/log/apache2/ \
