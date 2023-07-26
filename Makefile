@@ -77,13 +77,21 @@ shell-app:
 shell-db:
 	@docker exec -u root -it $(PROJECT_NAME)-db bash -l
 
-stop: stop-app stop-db
+start-app:
+	@docker start $(PROJECT_NAME)
+
+start-db:
+	@docker start $(PROJECT_NAME)-db
+
+start: start-db start-app
 
 stop-app:
 	@docker stop $(PROJECT_NAME)
 
 stop-db:
 	@docker stop $(PROJECT_NAME)-db
+
+stop: stop-app stop-db
 
 reload: stop-app run
 

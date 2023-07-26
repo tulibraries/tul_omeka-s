@@ -23,7 +23,7 @@ RUN apk add -U --no-cache \
       mariadb-dev=10.11.4-r0 \
       mariadb-client=10.11.4-r0 \
       wget=1.21.4-r0 \
-      curl=8.1.2-r0 \
+      curl=8.2.1-r0 \
       ghostscript=10.01.2-r0 \
       poppler-utils=23.05.0-r0 \
       libpng-dev=1.6.39-r3 \
@@ -58,7 +58,7 @@ RUN apk add -U --no-cache \
 &&  mv /var/www/omeka-s/ /var/www/html/ \
 &&  cp -f -p files/omeka/application/src/Form/LoginForm.php /var/www/html/application/src/Form/ \
 &&  cp -f -p files/omeka/application/config/application.config.php /var/www/html/application/config/ \
-&&  cp -f -p files/omeka/application/view/omeka/login/forgot-password.phtml /var/www/html/application/view/omeka/login/ \
+&&  cp -f -p files/omeka/application/view/omeka/index/index.phtml /var/www/html/application/view/omeka/index/ \
 &&  mkdir -p /var/www/html/config/ && mkdir -p /var/www/html/files/ && mkdir -p /var/www/html/modules/ && mkdir -p /var/www/html/themes/  \
 &&  mkdir -p /var/log/ \
 &&  chown -R nobody:nobody /var/log/apache2/ \
