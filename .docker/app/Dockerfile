@@ -33,23 +33,23 @@ RUN apk add -U --no-cache \
       imagemagick-dev=7.1.1.13-r0 \
       libxpm-dev=3.5.16-r1 \
       libwebp-dev=1.3.1-r0 \
-      php81=8.1.21-r0 \
-      php81-apache2=8.1.21-r0 \
-      php81-dev=8.1.21-r0 \
-      php81-pear=8.1.21-r0 \
-      php81-session=8.1.21-r0 \
-      php81-ctype=8.1.21-r0 \
-      php81-pdo=8.1.21-r0 \
-      php81-iconv=8.1.21-r0 \
-      php81-gd=8.1.21-r0 \
-      php81-openssl=8.1.21-r0 \
-      php81-mysqlnd=8.1.21-r0 \
-      php81-mysqli=8.1.21-r0 \
-      php81-pdo_mysql=8.1.21-r0 \
-      php81-fileinfo=8.1.21-r0 \
-      php81-mbstring=8.1.21-r0 \
-      php81-phar=8.1.21-r0 \
-      php81-tokenizer=8.1.21-r0 \
+      php81=8.1.22-r0 \
+      php81-apache2=8.1.22-r0 \
+      php81-dev=8.1.22-r0 \
+      php81-pear=8.1.22-r0 \
+      php81-session=8.1.22-r0 \
+      php81-ctype=8.1.22-r0 \
+      php81-pdo=8.1.22-r0 \
+      php81-iconv=8.1.22-r0 \
+      php81-gd=8.1.22-r0 \
+      php81-openssl=8.1.22-r0 \
+      php81-mysqlnd=8.1.22-r0 \
+      php81-mysqli=8.1.22-r0 \
+      php81-pdo_mysql=8.1.22-r0 \
+      php81-fileinfo=8.1.22-r0 \
+      php81-mbstring=8.1.22-r0 \
+      php81-phar=8.1.22-r0 \
+      php81-tokenizer=8.1.22-r0 \
 &&  pecl install -o -f imagick \
 &&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v4.0.0/omeka-s-4.0.0.zip" -O latest_omeka_s.zip \
 &&  unzip -q latest_omeka_s.zip -d /var/www/ \
