@@ -68,7 +68,7 @@ run-db:
     -e MARIADB_DATABASE=omeka \
     -e MARIADB_USER=omeka \
     -e MARIADB_PASSWORD=omeka \
-		--mount type=bind,source=$(PWD)/data/db,target=/lib/mysql \
+		--mount type=bind,source=$(PWD)/data/db,target=/bitnami/mariadb/data \
 		bitnami/mariadb:latest
 
 shell-app:
