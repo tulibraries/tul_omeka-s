@@ -51,7 +51,7 @@ RUN apk add -U --no-cache \
       php81-phar=8.1.22-r0 \
       php81-tokenizer=8.1.22-r0 \
 &&  pecl install -o -f imagick \
-&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v4.0.0/omeka-s-4.0.0.zip" -O latest_omeka_s.zip \
+&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v4.0.3/omeka-s-4.0.3.zip" -O latest_omeka_s.zip \
 &&  unzip -q latest_omeka_s.zip -d /var/www/ \
 &&  rm latest_omeka_s.zip \
 &&  rm -rf /var/www/html/ \
