@@ -20,8 +20,8 @@ RUN apk add -U --no-cache \
       build-base=0.5-r3 \
       dpkg=1.21.21-r1 \
       libxslt-dev=1.1.38-r0 \
-      mariadb-dev=10.11.4-r0 \
-      mariadb-client=10.11.4-r0 \
+      mariadb-dev=10.11.5-r0 \
+      mariadb-client=10.11.5-r0 \
       wget=1.21.4-r0 \
       curl=8.2.1-r0 \
       ghostscript=10.01.2-r0 \
@@ -33,25 +33,25 @@ RUN apk add -U --no-cache \
       imagemagick-dev=7.1.1.13-r0 \
       libxpm-dev=3.5.16-r1 \
       libwebp-dev=1.3.1-r0 \
-      php81=8.1.22-r0 \
-      php81-apache2=8.1.22-r0 \
-      php81-dev=8.1.22-r0 \
-      php81-pear=8.1.22-r0 \
-      php81-session=8.1.22-r0 \
-      php81-ctype=8.1.22-r0 \
-      php81-pdo=8.1.22-r0 \
-      php81-iconv=8.1.22-r0 \
-      php81-gd=8.1.22-r0 \
-      php81-openssl=8.1.22-r0 \
-      php81-mysqlnd=8.1.22-r0 \
-      php81-mysqli=8.1.22-r0 \
-      php81-pdo_mysql=8.1.22-r0 \
-      php81-fileinfo=8.1.22-r0 \
-      php81-mbstring=8.1.22-r0 \
-      php81-phar=8.1.22-r0 \
-      php81-tokenizer=8.1.22-r0 \
+      php81=8.1.23-r0 \
+      php81-apache2=8.1.23-r0 \
+      php81-dev=8.1.23-r0 \
+      php81-pear=8.1.23-r0 \
+      php81-session=8.1.23-r0 \
+      php81-ctype=8.1.23-r0 \
+      php81-pdo=8.1.23-r0 \
+      php81-iconv=8.1.23-r0 \
+      php81-gd=8.1.23-r0 \
+      php81-openssl=8.1.23-r0 \
+      php81-mysqlnd=8.1.23-r0 \
+      php81-mysqli=8.1.23-r0 \
+      php81-pdo_mysql=8.1.23-r0 \
+      php81-fileinfo=8.1.23-r0 \
+      php81-mbstring=8.1.23-r0 \
+      php81-phar=8.1.23-r0 \
+      php81-tokenizer=8.1.23-r0 \
 &&  pecl install -o -f imagick \
-&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v4.0.3/omeka-s-4.0.3.zip" -O latest_omeka_s.zip \
+&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v4.0.4/omeka-s-4.0.4.zip" -O latest_omeka_s.zip \
 &&  unzip -q latest_omeka_s.zip -d /var/www/ \
 &&  rm latest_omeka_s.zip \
 &&  rm -rf /var/www/html/ \
