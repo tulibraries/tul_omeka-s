@@ -32,7 +32,7 @@ RUN apk add -U --no-cache \
       imagemagick-libs=7.1.1.13-r0 \
       imagemagick-dev=7.1.1.13-r0 \
       libxpm-dev=3.5.16-r1 \
-      libwebp-dev=1.3.1-r0 \
+      libwebp-dev=1.3.2-r0 \
       php81=8.1.23-r0 \
       php81-apache2=8.1.23-r0 \
       php81-dev=8.1.23-r0 \
