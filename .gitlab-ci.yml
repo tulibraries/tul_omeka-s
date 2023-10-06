@@ -57,7 +57,7 @@ qa_deploy:
   variables:
     HARBOR_IMAGE: $HARBOR/tulibraries/tul_omeka-s
     RANCHER: rancher-np
-    CLUSTER: dev-library1
+    CLUSTER: dev-library0
   stage: deploy
   extends: .helm_setup
   only:
@@ -88,11 +88,11 @@ prod_deploy:
   variables:
     HARBOR_IMAGE: $HARBOR/tulibraries/tul_omeka-s
     RANCHER: rancher
-    CLUSTER: prod-library1
+    CLUSTER: prod-library0
   stage: deploy
   extends: .helm_setup
   only:
     - tags
   script:
-    - helm pull oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.2.0" --untar
-    - helm upgrade exhibits oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.2.0" --history-max=5 --namespace=exhibits-prod --values exhibits/values-prod.yaml --set image.repository=$HARBOR_IMAGE:$CI_COMMIT_TAG
+    - helm pull oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.2.1" --untar
+    - helm upgrade exhibits oci://$HARBOR/tulibraries/exhibits-charts/exhibits --version "0.2.1" --history-max=5 --namespace=exhibits-prod --values exhibits/values-prod.yaml --set image.repository=$HARBOR_IMAGE:$CI_COMMIT_TAG
