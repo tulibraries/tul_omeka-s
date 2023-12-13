@@ -9,48 +9,48 @@ USER root
 ENV PHPIZE_DEPS="autoconf dpkg-dev file g++ gcc libc-dev make pkgconfig re2c"
 
 RUN apk add -U --no-cache \
-      bash=5.2.15-r5 \
-      libxslt=1.1.38-r0 \
+      bash=5.2.21-r0 \
+      libxslt=1.1.39-r0 \
       tzdata=2023c-r1 \
-      shared-mime-info=2.2-r5 \
-      imagemagick=7.1.1.13-r0 \
-      mariadb-connector-c=3.3.5-r0 \
+      shared-mime-info=2.4-r0 \
+      imagemagick=7.1.1.22-r0 \
+      mariadb-connector-c=3.3.8-r0 \
 &&  apk add -U --no-cache --virtual build-dependencies \
-      git=2.40.1-r0 \
+      git=2.43.0-r0 \
       build-base=0.5-r3 \
-      dpkg=1.21.21-r1 \
-      libxslt-dev=1.1.38-r0 \
-      mariadb-dev=10.11.5-r0 \
-      mariadb-client=10.11.5-r0 \
+      dpkg=1.22.1-r0 \
+      libxslt-dev=1.1.39-r0 \
+      mariadb-dev=10.11.5-r3 \
+      mariadb-client=10.11.5-r3 \
       wget=1.21.4-r0 \
-      curl=8.4.0-r0 \
-      ghostscript=10.01.2-r0 \
-      poppler-utils=23.05.0-r0 \
-      libpng-dev=1.6.39-r3 \
-      libjpeg-turbo-dev=2.1.5.1-r3 \
-      freetype-dev=2.13.0-r5 \
-      imagemagick-libs=7.1.1.13-r0 \
-      imagemagick-dev=7.1.1.13-r0 \
-      libxpm-dev=3.5.16-r1 \
+      curl=8.5.0-r0 \
+      ghostscript=10.02.1-r0 \
+      poppler-utils=23.10.0-r0 \
+      libpng-dev=1.6.40-r0 \
+      libjpeg-turbo-dev=3.0.1-r0 \
+      freetype-dev=2.13.2-r0 \
+      imagemagick-libs=7.1.1.22-r0 \
+      imagemagick-dev=7.1.1.22-r0 \
+      libxpm-dev=3.5.17-r0 \
       libwebp-dev=1.3.2-r0 \
-      php81=8.1.23-r0 \
-      php81-apache2=8.1.23-r0 \
-      php81-dev=8.1.23-r0 \
-      php81-pear=8.1.23-r0 \
-      php81-session=8.1.23-r0 \
-      php81-ctype=8.1.23-r0 \
-      php81-pdo=8.1.23-r0 \
-      php81-iconv=8.1.23-r0 \
-      php81-gd=8.1.23-r0 \
-      php81-openssl=8.1.23-r0 \
-      php81-mysqlnd=8.1.23-r0 \
-      php81-mysqli=8.1.23-r0 \
-      php81-pdo_mysql=8.1.23-r0 \
-      php81-fileinfo=8.1.23-r0 \
-      php81-mbstring=8.1.23-r0 \
-      php81-phar=8.1.23-r0 \
-      php81-tokenizer=8.1.23-r0 \
-&&  pecl install -o -f imagick \
+      php81=8.1.26-r0 \
+      php81-apache2=8.1.26-r0 \
+      php81-dev=8.1.26-r0 \
+      php81-pear=8.1.26-r0 \
+      php81-session=8.1.26-r0 \
+      php81-ctype=8.1.26-r0 \
+      php81-pdo=8.1.26-r0 \
+      php81-iconv=8.1.26-r0 \
+      php81-gd=8.1.26-r0 \
+      php81-openssl=8.1.26-r0 \
+      php81-mysqlnd=8.1.26-r0 \
+      php81-mysqli=8.1.26-r0 \
+      php81-pdo_mysql=8.1.26-r0 \
+      php81-fileinfo=8.1.26-r0 \
+      php81-mbstring=8.1.26-r0 \
+      php81-phar=8.1.26-r0 \
+      php81-tokenizer=8.1.26-r0 \
+      php81-pecl-imagick=3.7.0-r4 \
 &&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v4.0.4/omeka-s-4.0.4.zip" -O latest_omeka_s.zip \
 &&  unzip -q latest_omeka_s.zip -d /var/www/ \
 &&  rm latest_omeka_s.zip \
