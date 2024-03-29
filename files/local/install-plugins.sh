@@ -36,7 +36,7 @@ module_git_urls+=( \
   "https://github.com/omeka-s-modules/CustomVocab/releases/download/v1.7.1/CustomVocab-1.7.1.zip" \
   "https://github.com/omeka-s-modules/FileSideload/releases/download/v1.7.1/FileSideload-1.7.1.zip" \
   "https://github.com/omeka-s-modules/MetadataBrowse/releases/download/v1.6.0/MetadataBrowse-1.6.0.zip" \
-  "https://github.com/Libnamic/Omeka-S-GoogleAnalytics/releases/download/v1.3.1/GoogleAnalytics.zip" \
+  "https://github.com/Libnamic/Omeka-S-GoogleAnalytics/releases/download/v1.3.1/GoogleAnalytics-1.3.1.zip" \
 )
 
 rm -rf /var/www/html/modules/{*,.*}
