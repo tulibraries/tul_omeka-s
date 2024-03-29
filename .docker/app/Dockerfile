@@ -11,17 +11,17 @@ ENV PHPIZE_DEPS="autoconf dpkg-dev file g++ gcc libc-dev make pkgconfig re2c"
 RUN apk add -U --no-cache \
       bash=5.2.21-r0 \
       libxslt=1.1.39-r0 \
-      tzdata=2023d-r0 \
+      tzdata=2024a-r0 \
       shared-mime-info=2.4-r0 \
-      imagemagick=7.1.1.22-r0 \
+      imagemagick=7.1.1.26-r0 \
       mariadb-connector-c=3.3.8-r0 \
 &&  apk add -U --no-cache --virtual build-dependencies \
       git=2.43.0-r0 \
       build-base=0.5-r3 \
       dpkg=1.22.1-r0 \
       libxslt-dev=1.1.39-r0 \
-      mariadb-dev=10.11.5-r3 \
-      mariadb-client=10.11.5-r3 \
+      mariadb-dev=10.11.6-r0 \
+      mariadb-client=10.11.6-r0 \
       wget=1.21.4-r0 \
       curl=8.5.0-r0 \
       ghostscript=10.02.1-r0 \
@@ -29,8 +29,8 @@ RUN apk add -U --no-cache \
       libpng-dev=1.6.40-r0 \
       libjpeg-turbo-dev=3.0.1-r0 \
       freetype-dev=2.13.2-r0 \
-      imagemagick-libs=7.1.1.22-r0 \
-      imagemagick-dev=7.1.1.22-r0 \
+      imagemagick-libs=7.1.1.26-r0 \
+      imagemagick-dev=7.1.1.26-r0 \
       libxpm-dev=3.5.17-r0 \
       libwebp-dev=1.3.2-r0 \
       php81=8.1.27-r0 \
