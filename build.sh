@@ -3,6 +3,7 @@ set -e
 
 echo "BUILDING OMEKA"
 git config --global --add safe.directory /build
+git submodule init
 git submodule update --recursive --force
 
 cd ./omeka-s
