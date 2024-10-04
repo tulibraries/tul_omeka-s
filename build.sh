@@ -13,6 +13,11 @@ npm install
 npm install ckeditor4@4.25.0
 npx gulp init
 
+# TODO look into why omeka-s devs install ckeditor twice in two different fashions.
+rm -fR ./application/asset/vendor/ckeditor
+cp -fR ./node_modules/ckeditor4 ./application/asset/vendor/ckeditor
+
+
 echo "UNINSTALL ALL OMEKA DEV DEPENDENCIES"
 npm uninstall $(jq -r '.devDependencies | keys | join(" ")' < package.json) --save-dev
 cd -
