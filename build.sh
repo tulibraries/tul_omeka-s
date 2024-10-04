@@ -4,6 +4,7 @@ set -e
 echo "BUILDING OMEKA"
 
 cd ./omeka-s
+git config --global --add safe.directory /build
 git submodule update --recursive --force
 
 echo "APPLY OMEKA SECURITY PATCHES"
