@@ -2,10 +2,10 @@
 set -e
 
 echo "BUILDING OMEKA"
+git config --global --add safe.directory /build
 git submodule update --recursive --force
 
 cd ./omeka-s
-git config --global --add safe.directory /build
 
 echo "APPLY OMEKA SECURITY PATCHES"
 npm audit fix --omit dev
