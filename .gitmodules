@@ -50,3 +50,39 @@
 	path = "omeka-s"
 	url = https://github.com/omeka/omeka-s.git
 	branch = v4.0.4
+[submodule "themes/default"]
+	path = themes/default
+	url = https://github.com/omeka-s-themes/default.git
+	branch = 1.7.1
+[submodule "themes/papers"]
+	path = themes/papers
+	url = https://github.com/omeka-s-themes/papers.git
+	branch = 1.4.1
+[submodule "themes/centerrow"]
+	path = themes/centerrow
+	url = https://github.com/omeka-s-themes/centerrow.git
+	branch = 1.8.1
+[submodule "themes/cozy"]
+	path = themes/cozy
+	url = https://github.com/omeka-s-themes/cozy.git
+	branch = 1.6.0
+[submodule "themes/foundation"]
+	path = themes/foundation
+	url = https://github.com/omeka-s-themes/foundation.git
+	branch = 1.4.1
+[submodule "themes/thanksroy"]
+	path = themes/thanksroy
+	url = https://github.com/omeka-s-themes/thanksroy.git
+	branch = 1.1.1
+[submodule "themes/thedaily"]
+	path = themes/thedaily
+	url = https://github.com/omeka-s-themes/thedaily.git
+	branch = 1.7.0
+[submodule "themes/crnc-theme"]
+	path = themes/crnc-theme
+	url = https://github.com/tulibraries/crnc-theme.git
+	branch = 0.6
+[submodule "themes/still-theme"]
+	path = themes/still-theme
+	url = https://github.com/tulibraries/still-theme.git
+	branch = 0.3
