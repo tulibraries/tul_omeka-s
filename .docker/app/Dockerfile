@@ -53,6 +53,7 @@ RUN apk add -U --no-cache \
       dpkg=1.22.6-r1 \
       git=2.45.2-r0 \
       imagemagick-dev=7.1.1.32-r2 \
+      jq=1.7.1-r0 \
       libxslt-dev=1.1.39-r1 \
       mariadb-dev=10.11.8-r0 \
       nodejs=20.15.1-r0 \
