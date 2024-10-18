@@ -1,7 +1,5 @@
 FROM harbor.k8s.temple.edu/library/httpd:2.4-alpine
 
-ARG OMEKA_VERSION=4.0.4
-
 WORKDIR /build
 
 COPY . .
@@ -11,56 +9,77 @@ USER root
 ENV PHPIZE_DEPS="autoconf dpkg-dev file g++ gcc libc-dev make pkgconfig re2c"
 
 RUN apk add -U --no-cache \
-      bash=5.2.26-r0 \
-      freetype-dev=2.13.2-r0 \
-      ghostscript=10.04.0-r0 \
-      imagemagick-libs=7.1.1.32-r2 \
-      imagemagick=7.1.1.32-r2 \
-      libjpeg-turbo-dev=3.0.3-r0 \
-      libpng-dev=1.6.44-r0 \
-      libwebp-dev=1.3.2-r0 \
-      libxpm-dev=3.5.17-r0 \
-      libxslt=1.1.39-r1 \
-      mariadb-connector-c=3.3.10-r0 \
-      php83-apache2=8.3.12-r0 \
-      php83-ctype=8.3.12-r0 \
-      php83-dev=8.3.12-r0 \
-      php83-dom=8.3.12-r0 \
-      php83-fileinfo=8.3.12-r0 \
-      php83-gd=8.3.12-r0 \
-      php83-iconv=8.3.12-r0 \
-      php83-intl=8.3.12-r0 \
-      php83-mbstring=8.3.12-r0 \
-      php83-mysqli=8.3.12-r0 \
-      php83-mysqlnd=8.3.12-r0 \
-      php83-openssl=8.3.12-r0 \
-      php83-pdo=8.3.12-r0 \
-      php83-pdo_mysql=8.3.12-r0 \
-      php83-pear=8.3.12-r0 \
-      php83-pecl-imagick=3.7.0-r0 \
-      php83-phar=8.3.12-r0 \
-      php83-session=8.3.12-r0 \
-      php83-tokenizer=8.3.12-r0 \
-      php83-xmlreader=8.3.12-r0 \
-      php83-xmlwriter=8.3.12-r0 \
-      php83=8.3.12-r0 \
-      poppler-utils=24.02.0-r1 \
+      bash=5.2.21-r0 \
+      libxslt=1.1.39-r0 \
+      tzdata=2024a-r0 \
       shared-mime-info=2.4-r0 \
-      tzdata=2024b-r0 \
+      imagemagick=7.1.1.26-r0 \
+      mariadb-connector-c=3.3.8-r0 \
 &&  apk add -U --no-cache --virtual build-dependencies \
+      git=2.43.0-r0 \
       build-base=0.5-r3 \
-      curl=8.10.1-r0 \
-      dpkg=1.22.6-r1 \
-      git=2.45.2-r0 \
-      imagemagick-dev=7.1.1.32-r2 \
-      jq=1.7.1-r0 \
-      libxslt-dev=1.1.39-r1 \
-      mariadb-dev=10.11.8-r0 \
-      nodejs=20.15.1-r0 \
-      npm=10.8.0-r0 \
-      wget=1.24.5-r0
+      dpkg=1.22.1-r0 \
+      libxslt-dev=1.1.39-r0 \
+      mariadb-dev=10.11.6-r0 \
+      mariadb-client=10.11.6-r0 \
+      wget=1.21.4-r0 \
+      curl=8.5.0-r0 \
+      ghostscript=10.02.1-r0 \
+      poppler-utils=23.10.0-r0 \
+      libpng-dev=1.6.40-r0 \
+      libjpeg-turbo-dev=3.0.1-r0 \
+      freetype-dev=2.13.2-r0 \
+      imagemagick-libs=7.1.1.26-r0 \
+      imagemagick-dev=7.1.1.26-r0 \
+      libxpm-dev=3.5.17-r0 \
+      libwebp-dev=1.3.2-r0 \
+      php81=8.1.28-r0 \
+      php81-apache2=8.1.28-r0 \
+      php81-dev=8.1.28-r0 \
+      php81-pear=8.1.28-r0 \
+      php81-session=8.1.28-r0 \
+      php81-ctype=8.1.28-r0 \
+      php81-pdo=8.1.28-r0 \
+      php81-iconv=8.1.28-r0 \
+      php81-gd=8.1.28-r0 \
+      php81-openssl=8.1.28-r0 \
+      php81-mysqlnd=8.1.28-r0 \
+      php81-mysqli=8.1.28-r0 \
+      php81-pdo_mysql=8.1.28-r0 \
+      php81-fileinfo=8.1.28-r0 \
+      php81-mbstring=8.1.28-r0 \
+      php81-phar=8.1.28-r0 \
+      php81-tokenizer=8.1.28-r0 \
+      php81-pecl-imagick=3.7.0-r4 \
+&&  wget --no-verbose "https://github.com/omeka/omeka-s/releases/download/v4.0.4/omeka-s-4.0.4.zip" -O latest_omeka_s.zip \
+&&  unzip -q latest_omeka_s.zip -d /var/www/ \
+&&  rm latest_omeka_s.zip \
+&&  rm -rf /var/www/html/ \
+&&  mv /var/www/omeka-s/ /var/www/html/ \
+&&  cp -f -p files/omeka/application/src/Form/LoginForm.php /var/www/html/application/src/Form/ \
+&&  cp -f -p files/omeka/application/config/application.config.php /var/www/html/application/config/ \
+&&  cp -f -p files/omeka/application/view/omeka/index/index.phtml /var/www/html/application/view/omeka/index/ \
+&&  mkdir -p /var/www/html/config/ && mkdir -p /var/www/html/files/ && mkdir -p /var/www/html/modules/ && mkdir -p /var/www/html/themes/  \
+&&  mkdir -p /var/log/ \
+&&  chown -R nobody:nobody /var/log/apache2/ \
+&&  mkdir -p /etc/ImageMagick-6/ \
+&&  cp imagemagick-policy.xml /etc/ImageMagick-6/policy.xml \
+&&  cp .htaccess /var/www/html/.htaccess \
+&&  cp database.ini /var/www/html/config/ \
+&&  cp local.config.php /var/www/html/config/ \
+&&  cp -pr files/apache2/httpd.conf /etc/apache2 \
+&&  cp -pr files/local/install-plugins.sh /var/www/html \
+&&  echo "ServerName localhost" >> /etc/apache2/httpd.conf \
+&&  chown -R nobody:nobody /var/www/html/ \
+&&  chown -R nobody:nobody /run/apache2/ \
+&&  chmod 600 /var/www/html/config/database.ini \
+&&  chmod 600 /var/www/html/config/local.config.php \
+&&  chmod 600 /var/www/html/.htaccess \
+&&  chmod 700 /var/www/html/install-plugins.sh \
+&&  rm -rf /build
 
-RUN ./build.sh > /dev/stdout 2>&1
 WORKDIR /var/www/html
+ENTRYPOINT ["/bin/bash"]
+
 USER nobody
 CMD ["httpd-foreground", "-d", "/etc/apache2", "-f", "/etc/apache2/httpd.conf"]
