@@ -11,6 +11,7 @@ CLEAR_CACHES ?= no
 OMEKA_DB_HOST ?= host.docker.internal
 OMEKA_DB_NAME ?= omeka
 OMEKA_DB_USER ?= omeka
+OMEKA_VERSION ?= 4.0.4
 OMEKA_DB_PASSWORD ?= omeka
 MARIADB_ROOT_PASSWORD ?= omeka
 MAIL_SERVER_NAME ?= "Gmail"
@@ -41,8 +42,11 @@ build: pull-db
 	@docker build \
 		--tag $(HARBOR)/$(IMAGE):$(VERSION) \
 		--tag $(HARBOR)/$(IMAGE):latest \
+		--build-arg OMEKA_VERSION=$(OMEKA_VERSION) \
 		--file .docker/app/Dockerfile \
-		--no-cache .
+		--progress plain \
+		--no-cache \
+		.
 
 pull-db:
 	@docker pull bitnami/mariadb:latest
