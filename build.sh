@@ -8,7 +8,7 @@ git submodule update --recursive --force
 
 cd ./omeka-s
 echo "APPLY OMEKA SECURITY PATCHES"
-npm audit fix --omit dev || true
+npm audit fix --omit dev
 npm install
 npm install ckeditor4@4.25.0
 npx gulp init
