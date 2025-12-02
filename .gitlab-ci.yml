@@ -48,7 +48,7 @@ tag:
 qa_deploy:
   variables:
     HARBOR_IMAGE: $HARBOR/tulibraries/tul_omeka-s
-    RANCHER: rancher-np
+    RANCHER: np-rancher
     CLUSTER: $DEV_CLUSTER
   stage: deploy
   extends: .helm_setup
