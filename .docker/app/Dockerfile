@@ -1,6 +1,6 @@
 FROM harbor.k8s.temple.edu/library/httpd:2.4-alpine
 
-ARG OMEKA_VERSION=4.0.4
+ARG OMEKA_VERSION=4.1.1
 
 WORKDIR /build
 
