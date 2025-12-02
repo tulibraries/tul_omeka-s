@@ -79,7 +79,7 @@ tag_prod:
 prod_deploy:
   variables:
     HARBOR_IMAGE: $HARBOR/tulibraries/tul_omeka-s
-    RANCHER: rancher
+    RANCHER: prod-rancher
     CLUSTER: $PROD_CLUSTER
   stage: deploy
   extends: .helm_setup
