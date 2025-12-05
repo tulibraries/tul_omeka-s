@@ -9,6 +9,11 @@ git submodule update --recursive --force
 cd ./omeka-s
 echo "APPLY OMEKA SECURITY PATCHES"
 npm audit fix --omit dev
+echo "INSTALL OMEKA PHP DEPENDENCIES"
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+rm composer-setup.php
+COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_HOME=/tmp composer install --no-dev --prefer-dist --no-interaction
 npm install
 npm install ckeditor4@4.25.0
 npx gulp init

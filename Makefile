@@ -11,13 +11,15 @@ CLEAR_CACHES ?= no
 OMEKA_DB_HOST ?= host.docker.internal
 OMEKA_DB_NAME ?= omeka
 OMEKA_DB_USER ?= omeka
-OMEKA_VERSION ?= 4.0.4
+OMEKA_VERSION ?= 4.2.0
 OMEKA_DB_PASSWORD ?= omeka
 MARIADB_ROOT_PASSWORD ?= omeka
 MAIL_SERVER_NAME ?= "Gmail"
 MAIL_SERVER ?= "smtp.gmail.com"
 MAIL_ADDRESS ?= "omeka@example.com"
 MAIL_PASSWORD ?= replace_me
+DOCKER_PLATFORM ?= linux/amd64
+DIRS := data/db files/apache2 files/local volume/modules volume/themes volume/files tmpfs/log tmpfs/tmp tmpfs/run
 
 DEFAULT_RUN_ARGS ?= -e "EXECJS_RUNTIME=Disabled" \
     -e "K8=yes" \
@@ -38,8 +40,9 @@ DEFAULT_RUN_ARGS ?= -e "EXECJS_RUNTIME=Disabled" \
     --mount type=bind,source="$(shell pwd)/tmpfs/tmp",target=/tmp \
     --rm -it
 
-build: pull-db 
-	@docker build \
+build: prepare-dirs pull-db 
+	@DOCKER_DEFAULT_PLATFORM=$(DOCKER_PLATFORM) docker build \
+		--platform $(DOCKER_PLATFORM) \
 		--tag $(HARBOR)/$(IMAGE):$(VERSION) \
 		--tag $(HARBOR)/$(IMAGE):latest \
 		--build-arg OMEKA_VERSION=$(OMEKA_VERSION) \
@@ -51,6 +54,9 @@ build: pull-db
 pull-db:
 	@docker pull bitnami/mariadb:latest
 
+prepare-dirs:
+	@mkdir -p $(DIRS)
+
 init-container:
 	@docker run --name=$(PROJECT_NAME) -p 127.0.0.1:80:80/tcp \
 		$(DEFAULT_RUN_ARGS) \
@@ -61,12 +67,12 @@ clean-plugins:
 
 up: run-db run
 
-run:
+run: prepare-dirs
 	@docker run --name=$(PROJECT_NAME) -d -p 127.0.0.1:80:80/tcp \
 		$(DEFAULT_RUN_ARGS) \
 		$(HARBOR)/$(IMAGE):$(VERSION)
 
-run-db:
+run-db: prepare-dirs
 	@docker run --name=$(PROJECT_NAME)-db -d -p 127.0.0.1:3306:3306 \
 	  -e MARIADB_ROOT_PASSWORD=omeka \
     -e MARIADB_DATABASE=omeka \
