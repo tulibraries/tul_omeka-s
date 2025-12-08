@@ -1,4 +1,4 @@
-FROM harbor.k8s.temple.edu/docker-hub-proxy/library/httpd:2.4-alpine
+FROM harbor.k8s.temple.edu/library/httpd:2.4-alpine
 
 ARG OMEKA_VERSION=4.2.0
 
