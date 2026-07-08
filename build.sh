@@ -9,7 +9,16 @@ git submodule update --init --recursive --force
 if [ -n "${OMEKA_VERSION:-}" ]; then
   echo "CHECKOUT OMEKA ${OMEKA_VERSION}"
   git -C ./omeka-s fetch --force --tags
-  git -C ./omeka-s checkout "${OMEKA_VERSION}"
+  if git -C ./omeka-s rev-parse --verify --quiet "refs/tags/${OMEKA_VERSION}" >/dev/null; then
+    git -C ./omeka-s checkout "${OMEKA_VERSION}"
+  elif git -C ./omeka-s rev-parse --verify --quiet "refs/tags/v${OMEKA_VERSION}" >/dev/null; then
+    git -C ./omeka-s checkout "v${OMEKA_VERSION}"
+  elif git -C ./omeka-s rev-parse --verify --quiet "refs/remotes/origin/${OMEKA_VERSION}" >/dev/null; then
+    git -C ./omeka-s checkout "${OMEKA_VERSION}"
+  else
+    echo "Unable to resolve OMEKA_VERSION=${OMEKA_VERSION} in ./omeka-s" >&2
+    exit 1
+  fi
 fi
 
 cd ./omeka-s
