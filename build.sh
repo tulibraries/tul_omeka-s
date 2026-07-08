@@ -4,7 +4,13 @@ set -e
 echo "BUILDING OMEKA"
 git config --global --add safe.directory /build
 git submodule init
-git submodule update --recursive --force
+git submodule update --init --recursive --force
+
+if [ -n "${OMEKA_VERSION:-}" ]; then
+  echo "CHECKOUT OMEKA ${OMEKA_VERSION}"
+  git -C ./omeka-s fetch --force --tags
+  git -C ./omeka-s checkout "${OMEKA_VERSION}"
+fi
 
 cd ./omeka-s
 echo "APPLY OMEKA SECURITY PATCHES"
@@ -13,7 +19,7 @@ echo "INSTALL OMEKA PHP DEPENDENCIES"
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 rm composer-setup.php
-COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_HOME=/tmp composer install --no-dev --prefer-dist --no-interaction
+COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_HOME=/tmp composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader --classmap-authoritative
 npm install
 npm install ckeditor4@4.25.0
 npx gulp init

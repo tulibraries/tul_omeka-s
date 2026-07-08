@@ -1,6 +1,6 @@
 FROM harbor.k8s.temple.edu/docker-hub-proxy/library/httpd:2.4-alpine
 
-ARG OMEKA_VERSION=4.2.0
+ARG OMEKA_VERSION=4.2.1
 
 WORKDIR /build
 
@@ -10,7 +10,8 @@ USER root
 
 ENV PHPIZE_DEPS="autoconf dpkg-dev file g++ gcc libc-dev make pkgconfig re2c"
 
-RUN apk add -U --no-cache \
+RUN apk upgrade --no-cache \
+&&  apk add -U --no-cache \
       bash=5.3.9-r1 \
       freetype-dev=2.14.3-r0 \
       ghostscript=10.07.1-r0 \
