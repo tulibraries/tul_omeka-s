@@ -57,7 +57,7 @@ RUN apk upgrade --no-cache \
       jq=1.8.1-r0 \
       libxslt-dev=1.1.43-r3 \
       mariadb-dev=11.8.8-r0 \
-      nodejs=24.17.0-r0 \
+      nodejs=24.18.1-r0 \
       npm=11.12.1-r0 \
       wget=1.25.0-r3
 
