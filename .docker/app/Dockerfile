@@ -6,7 +6,7 @@ WORKDIR /build
 
 COPY . .
 
-USER root
+USER 0
 
 ENV PHPIZE_DEPS="autoconf dpkg-dev file g++ gcc libc-dev make pkgconfig re2c"
 
@@ -64,5 +64,5 @@ RUN apk upgrade --no-cache \
 RUN ln -sf /usr/bin/php85 /usr/bin/php \
  && ./build.sh > /dev/stdout 2>&1
 WORKDIR /var/www/html
-USER nobody
+USER 65534
 CMD ["httpd-foreground", "-d", "/etc/apache2", "-f", "/etc/apache2/httpd.conf"]
