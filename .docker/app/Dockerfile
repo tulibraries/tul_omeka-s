@@ -14,13 +14,13 @@ RUN apk upgrade --no-cache \
 &&  apk add -U --no-cache \
       bash=5.3.9-r1 \
       freetype-dev=2.14.3-r0 \
-      ghostscript=10.07.1-r0 \
-      imagemagick-libs=7.1.2.30-r0 \
-      imagemagick=7.1.2.30-r0 \
+      ghostscript=10.08.0-r0 \
+      imagemagick-libs=7.1.2.34-r0 \
+      imagemagick=7.1.2.34-r0 \
       libjpeg-turbo-dev=3.1.3-r0 \
-      libpng-dev=1.6.58-r1 \
+      libpng-dev=1.6.59-r0 \
       libwebp-dev=1.6.0-r0 \
-      libxpm-dev=3.5.19-r0 \
+      libxpm-dev=3.5.20-r0 \
       libxslt=1.1.43-r3 \
       mariadb-connector-c=3.4.6-r0 \
       php85-apache2=8.5.12-r0 \
@@ -47,16 +47,16 @@ RUN apk upgrade --no-cache \
       php85=8.5.12-r0 \
       poppler-utils=25.12.0-r1 \
       shared-mime-info=2.4-r7 \
-      tzdata=2026c-r0 \
+      tzdata=2026e-r0 \
 &&  apk add -U --no-cache --virtual build-dependencies \
       build-base=0.5-r4 \
       curl=8.22.0-r0 \
       dpkg=1.23.7-r0 \
       git=2.54.0-r0 \
-      imagemagick-dev=7.1.2.30-r0 \
+      imagemagick-dev=7.1.2.34-r0 \
       jq=1.8.2-r0 \
       libxslt-dev=1.1.43-r3 \
-      mariadb-dev=11.8.8-r0 \
+      mariadb-dev=11.8.9-r0 \
       nodejs=24.18.1-r0 \
       npm=11.12.1-r0 \
       wget=1.25.0-r3
