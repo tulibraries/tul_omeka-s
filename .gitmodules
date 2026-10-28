@@ -86,3 +86,7 @@
 	path = themes/still-theme
 	url = https://github.com/tulibraries/still-theme.git
 	branch = 0.3
+[submodule "modules/CookieChimp"]
+	path = modules/CookieChimp
+	url = git@github.com:tulibraries/omeka-s-cookiechimp.git
+	branch = main
