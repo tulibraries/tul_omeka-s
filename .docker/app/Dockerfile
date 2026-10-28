@@ -50,14 +50,14 @@ RUN apk upgrade --no-cache \
       tzdata=2026e-r0 \
 &&  apk add -U --no-cache --virtual build-dependencies \
       build-base=0.5-r4 \
-      curl=8.22.0-r0 \
+      curl=8.23.0-r0 \
       dpkg=1.23.7-r0 \
       git=2.54.0-r0 \
       imagemagick-dev=7.1.2.34-r0 \
       jq=1.8.2-r0 \
       libxslt-dev=1.1.43-r3 \
       mariadb-dev=11.8.9-r0 \
-      nodejs=24.18.1-r0 \
+      nodejs=24.22.1-r0 \
       npm=11.12.1-r0 \
       wget=1.25.0-r3
 
