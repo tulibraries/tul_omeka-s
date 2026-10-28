@@ -23,7 +23,7 @@ fi
 
 cd ./omeka-s
 echo "APPLY OMEKA SECURITY PATCHES"
-npm audit fix --omit dev
+npm audit fix --omit dev --audit-level=moderate
 echo "INSTALL OMEKA PHP DEPENDENCIES"
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 php composer-setup.php --install-dir=/usr/local/bin --filename=composer
